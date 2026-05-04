@@ -1,5 +1,5 @@
 // Wiseble — minimal vanilla JS
-// 1) Human / Machine mode toggle (persisted in localStorage)
+// 1) Human / Agent mode toggle (persisted in localStorage)
 // 2) Mobile menu toggle
 // 3) Code-block copy buttons (with optional Plausible event)
 
