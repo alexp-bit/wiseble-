@@ -25,170 +25,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind via CDN -->
+  <!-- Tailwind via CDN + shared design tokens -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            'midnight-void': '#000000',
-            'ghost-white': '#ffffff',
-            'muted-ash': '#666666',
-            'accent-orange': '#ff5c00',
-            surface: '#131313',
-            'surface-container': '#1f1f1f',
-            'surface-container-low': '#1b1b1b',
-            'surface-container-lowest': '#0e0e0e',
-            'surface-container-high': '#2a2a2a',
-            'on-surface': '#e2e2e2',
-            'on-surface-variant': '#c4c7c8',
-            outline: '#8e9192',
-            'outline-variant': '#444748',
-          },
-          fontFamily: {
-            display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
-            heading: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
-            body: ['Inter', 'system-ui', 'sans-serif'],
-          },
-          spacing: {
-            xs: '10px', sm: '11px', md: '17px', lg: '25px', xl: '30px', xxl: '35px',
-            'section-gap': '156px',
-          },
-          maxWidth: { content: '1280px', wide: '1440px' },
-        },
-      },
-    };
-  </script>
-
-  <style>
-    /* ============================== Wiseble Virtual System ============================== */
-    :root {
-      --color-midnight-void: #000000;
-      --color-ghost-white: #ffffff;
-      --color-muted-ash: #666666;
-      --color-accent-orange: #ff5c00;
-      --color-surface-container-lowest: #0e0e0e;
-      --color-surface-container-low: #1b1b1b;
-      --color-surface-container: #1f1f1f;
-    }
-
-    body {
-      background: #000000;
-      color: #ffffff;
-      font-family: Inter, system-ui, sans-serif;
-      font-size: 12px;
-      line-height: 1.2;
-      font-weight: 500;
-      -webkit-font-smoothing: antialiased;
-      margin: 0;
-      padding: 0;
-    }
-
-    .display-xl { font-family: 'Space Grotesk', sans-serif; font-size: clamp(40px, 7vw, 72px); font-weight: 500; line-height: 1.1; letter-spacing: -1.4px; }
-    .display { font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 6vw, 60px); font-weight: 500; line-height: 1.1; letter-spacing: -1.2px; }
-    .heading { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 3.2vw, 30px); font-weight: 500; line-height: 1.2; letter-spacing: -0.6px; }
-    .subheading { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 500; line-height: 1.2; letter-spacing: -0.3px; }
-    .body-lg { font-family: Inter, sans-serif; font-size: 16px; font-weight: 500; line-height: 1.5; letter-spacing: 0; }
-    .body-base { font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; line-height: 1.5; }
-    .helper { font-family: Inter, sans-serif; font-size: 13px; font-weight: 400; line-height: 1.5; color: var(--color-muted-ash); }
-    .caption { font-family: Inter, sans-serif; font-size: 10px; font-weight: 500; line-height: 1; letter-spacing: 0.12em; text-transform: uppercase; }
-    .label-sg { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 500; line-height: 1; letter-spacing: 0.18em; text-transform: uppercase; }
-
-    /* Outlined buttons (per design system) */
-    .btn-outline {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      padding: 18px 30px; border: 2px solid #ffffff; background: transparent;
-      color: #ffffff; border-radius: 10px;
-      font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 500;
-      letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer;
-      transition: background-color .15s ease, color .15s ease;
-    }
-    .btn-outline:hover { background: #ffffff; color: #000000; }
-
-    .btn-solid {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      padding: 18px 30px; border: 2px solid #ffffff; background: #ffffff;
-      color: #000000; border-radius: 10px;
-      font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 500;
-      letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer;
-      transition: background-color .15s ease, color .15s ease;
-    }
-    .btn-solid:hover { background: transparent; color: #ffffff; }
-
-    .btn-nav {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 10px 20px; border: 2px solid #ffffff; background: transparent;
-      color: #ffffff; border-radius: 10px;
-      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 500;
-      letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
-      transition: background-color .15s ease, color .15s ease;
-    }
-    .btn-nav:hover { background: #ffffff; color: #000000; }
-
-    /* Cards: 2px white border, dark fill */
-    .console-card {
-      border: 2px solid #ffffff; background: #0e0e0e; padding: 30px;
-      transition: border-color .15s ease;
-    }
-    .console-card-low { border: 2px solid #ffffff; background: #131313; padding: 30px; }
-    .console-card-soft { border: 1px solid #353535; background: #0e0e0e; padding: 30px; }
-
-    /* Corner brackets (decorative) */
-    .bracket-frame { position: relative; }
-    .bracket-frame::before, .bracket-frame::after,
-    .bracket-frame > .bl, .bracket-frame > .br {
-      content: ''; position: absolute; width: 18px; height: 18px; pointer-events: none;
-    }
-    .bracket-frame::before { top: -2px; left: -2px; border-top: 2px solid #ffffff; border-left: 2px solid #ffffff; }
-    .bracket-frame::after { top: -2px; right: -2px; border-top: 2px solid #ffffff; border-right: 2px solid #ffffff; }
-    .bracket-frame > .bl { bottom: -2px; left: -2px; border-bottom: 2px solid #ffffff; border-left: 2px solid #ffffff; }
-    .bracket-frame > .br { bottom: -2px; right: -2px; border-bottom: 2px solid #ffffff; border-right: 2px solid #ffffff; }
-
-    /* Code block — dark with vivid accents */
-    .code-block {
-      background: #0e0e0e; border: 2px solid #ffffff; border-radius: 0;
-      font-family: 'Space Grotesk', monospace; font-size: 13px; line-height: 1.6;
-    }
-    .code-block .tok-key { color: #ffb59a; }
-    .code-block .tok-str { color: #ff5c00; }
-    .code-block .tok-pun { color: #c4c7c8; }
-    .code-block .tok-com { color: #666666; font-style: italic; }
-    .code-block .tok-fn  { color: #ffffff; font-weight: 600; }
-
-    /* Material symbols */
-    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-
-    /* Section dividers — thin white horizontal */
-    .hairline { border-top: 1px solid #353535; }
-
-    /* Section spacing — use 80px on mobile, 120-156px on desktop */
-    .section { padding-top: 80px; padding-bottom: 80px; }
-    @media (min-width: 768px) { .section { padding-top: 120px; padding-bottom: 120px; } }
-    @media (min-width: 1280px) { .section { padding-top: 156px; padding-bottom: 156px; } }
-
-    /* Comparison table */
-    .compare-table th, .compare-table td {
-      border: 1px solid #353535; padding: 18px 20px; vertical-align: top;
-      font-family: Inter, sans-serif; font-size: 14px; font-weight: 500;
-    }
-    .compare-table th { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; font-size: 12px; color: #ffffff; background: #1b1b1b; }
-    .compare-table td:first-child { background: #0e0e0e; font-weight: 600; }
-
-    /* Mobile menu */
-    .mobile-menu[hidden] { display: none; }
-
-    /* Focus */
-    a:focus-visible, button:focus-visible {
-      outline: 2px solid #ff5c00; outline-offset: 4px;
-    }
-
-    /* FAQ accordion */
-    details[open] summary .chev { transform: rotate(180deg); }
-    summary { list-style: none; cursor: pointer; }
-    summary::-webkit-details-marker { display: none; }
-  </style>
+  <script src="assets/tailwind-config.js"></script>
+  <link rel="stylesheet" href="assets/styles.css" />
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -207,20 +47,20 @@
   <!-- <script defer data-domain="wiseble.ai" src="https://plausible.io/js/script.js"></script> -->
 </head>
 
-<body>
+<body data-page="home">
 
   <!-- ============================== TOP NAV ============================== -->
   <nav class="fixed top-0 inset-x-0 z-50 bg-midnight-void border-b border-[#222]">
     <div class="max-w-wide mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-3">
+      <a href="index.html" class="flex items-center gap-3">
         <span class="display" style="font-size:22px;letter-spacing:-0.4px">Wiseble.ai</span>
       </a>
 
       <div class="hidden md:flex items-center gap-8">
-        <a href="/" class="label-sg text-ghost-white border-b-2 border-ghost-white pb-1">Home</a>
+        <a href="index.html" class="label-sg text-ghost-white border-b-2 border-ghost-white pb-1">Home</a>
         <a href="providers.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Providers</a>
         <a href="developers.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Developers</a>
-        <a href="use-cases/" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Use cases</a>
+        <a href="use-cases/index.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Use cases</a>
         <a href="pricing.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Pricing</a>
         <a href="about.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">About</a>
       </div>
@@ -236,10 +76,10 @@
     <!-- Mobile menu -->
     <div id="mobile-menu" class="mobile-menu md:hidden border-t border-[#222] bg-midnight-void" hidden>
       <div class="px-6 py-6 flex flex-col gap-4">
-        <a href="/" class="label-sg text-ghost-white">Home</a>
+        <a href="index.html" class="label-sg text-ghost-white">Home</a>
         <a href="providers.html" class="label-sg text-muted-ash">Providers</a>
         <a href="developers.html" class="label-sg text-muted-ash">Developers</a>
-        <a href="use-cases/" class="label-sg text-muted-ash">Use cases</a>
+        <a href="use-cases/index.html" class="label-sg text-muted-ash">Use cases</a>
         <a href="pricing.html" class="label-sg text-muted-ash">Pricing</a>
         <a href="about.html" class="label-sg text-muted-ash">About</a>
         <a href="partner.html" class="btn-nav mt-2">Become a partner</a>
@@ -253,7 +93,7 @@
     <section class="section">
       <div class="max-w-content mx-auto px-6 md:px-10 text-center">
         <h1 class="display-xl text-ghost-white max-w-5xl mx-auto">
-          Make your scraping API<br/>agent-payable in one day.
+          Your <span class="text-accent-orange">Data</span> API —<br/>Open to AI agents <span class="text-accent-orange">revenue</span> stream
         </h1>
         <p class="body-lg text-on-surface-variant max-w-3xl mx-auto mt-8">
           Wiseble adds an agent-payable interface to your existing scraping API. Your tariffs, your billing system, your wallet, your brand — all stay yours. We add a <span class="font-mono text-accent-orange">/.well-known/x402</span> endpoint, an MCP manifest, and a wallet→account bridge. That's it.
@@ -609,7 +449,7 @@
           <a href="use-cases/knowledge-graph-agents.html" class="border border-[#353535] hover:border-ghost-white p-4 helper transition-colors">Knowledge graph</a>
         </div>
 
-        <a href="use-cases/" class="caption text-ghost-white hover:text-accent-orange inline-flex items-center gap-2 mt-8">
+        <a href="use-cases/index.html" class="caption text-ghost-white hover:text-accent-orange inline-flex items-center gap-2 mt-8">
           See 10 agent use cases
           <span class="material-symbols-outlined text-sm">arrow_outward</span>
         </a>
@@ -764,7 +604,7 @@
         <span class="caption text-muted-ash">Product</span>
         <a href="providers.html" class="caption text-ghost-white hover:text-accent-orange">For providers</a>
         <a href="developers.html" class="caption text-ghost-white hover:text-accent-orange">For developers</a>
-        <a href="use-cases/" class="caption text-ghost-white hover:text-accent-orange">Use cases</a>
+        <a href="use-cases/index.html" class="caption text-ghost-white hover:text-accent-orange">Use cases</a>
         <a href="pricing.html" class="caption text-ghost-white hover:text-accent-orange">Pricing</a>
       </div>
 

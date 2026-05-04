@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — Wiseble</title>
+  <meta name="description" content="Simple SaaS pricing. No revenue share. No transaction fees. $299 to $1,999 per month flat — your volume goes 10x, your bill stays the same." />
+  <link rel="canonical" href="https://wiseble.ai/pricing" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Pricing — Wiseble" />
+  <meta property="og:description" content="Simple SaaS pricing. No revenue share. No transaction fees." />
+  <meta property="og:url" content="https://wiseble.ai/pricing" />
+  <meta property="og:image" content="https://wiseble.ai/assets/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/tailwind-config.js"></script>
+  <link rel="stylesheet" href="assets/styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Wiseble — Agent-payable API gateway",
+    "description": "Flat SaaS gateway for making your data API agent-payable. No revenue share.",
+    "offers": [
+      {"@type":"Offer","name":"Starter","price":"299","priceCurrency":"USD","availability":"https://schema.org/InStock"},
+      {"@type":"Offer","name":"Growth","price":"799","priceCurrency":"USD","availability":"https://schema.org/InStock"},
+      {"@type":"Offer","name":"Scale","price":"1999","priceCurrency":"USD","availability":"https://schema.org/InStock"}
+    ]
+  }
+  </script>
+</head>
+
+<body data-page="pricing">
+
+  <nav class="fixed top-0 inset-x-0 z-50 bg-midnight-void border-b border-[#222]">
+    <div class="max-w-wide mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <span class="display" style="font-size:22px;letter-spacing:-0.4px">Wiseble.ai</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Home</a>
+        <a href="providers.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Providers</a>
+        <a href="developers.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Developers</a>
+        <a href="use-cases/index.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Use cases</a>
+        <a href="pricing.html" class="label-sg text-ghost-white border-b-2 border-ghost-white pb-1">Pricing</a>
+        <a href="about.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">About</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="partner.html" class="hidden md:inline-flex btn-nav">Become a partner</a>
+        <button id="burger" type="button" class="md:hidden p-2 text-ghost-white" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="mobile-menu md:hidden border-t border-[#222] bg-midnight-void" hidden>
+      <div class="px-6 py-6 flex flex-col gap-4">
+        <a href="index.html" class="label-sg text-muted-ash">Home</a>
+        <a href="providers.html" class="label-sg text-muted-ash">Providers</a>
+        <a href="developers.html" class="label-sg text-muted-ash">Developers</a>
+        <a href="use-cases/index.html" class="label-sg text-muted-ash">Use cases</a>
+        <a href="pricing.html" class="label-sg text-ghost-white">Pricing</a>
+        <a href="about.html" class="label-sg text-muted-ash">About</a>
+        <a href="partner.html" class="btn-nav mt-2">Become a partner</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-16">
+
+    <!-- HERO -->
+    <section class="section">
+      <div class="max-w-content mx-auto px-6 md:px-10 text-center">
+        <h1 class="display-xl text-ghost-white max-w-4xl mx-auto">
+          Simple SaaS pricing.<br/>No <span class="text-accent-orange">revenue share</span>.
+        </h1>
+        <p class="body-lg text-accent-orange uppercase tracking-widest mt-6">Protocol-Level Transparency · Zero Hidden Overheads</p>
+      </div>
+    </section>
+
+    <!-- PRICING TABLE -->
+    <section class="section pt-0 md:pt-0 lg:pt-0 border-t border-[#222]">
+      <div class="max-w-[1200px] mx-auto px-6 md:px-10 mt-16">
+        <div class="bracket-frame border-2 border-ghost-white p-2 bg-surface-container-lowest"><span class="bl"></span><span class="br"></span>
+          <div class="grid grid-cols-1 md:grid-cols-4 divide-y-2 md:divide-y-0 md:divide-x-2 divide-ghost-white">
+
+            <!-- Starter -->
+            <div class="flex flex-col p-8">
+              <span class="caption text-muted-ash mb-4">Level 01</span>
+              <h3 class="heading text-ghost-white mb-3">Starter</h3>
+              <div class="mb-8">
+                <span class="display text-ghost-white" style="font-size:44px">$299</span>
+                <span class="caption text-muted-ash">/MO</span>
+              </div>
+              <ul class="space-y-3 mb-auto helper">
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> Up to 3 packages</li>
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> Standard MCP endpoint</li>
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> Standard dashboard</li>
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> Community support</li>
+              </ul>
+              <a href="partner.html" class="mt-8 btn-outline">Initialize</a>
+            </div>
+
+            <!-- Growth -->
+            <div class="flex flex-col p-8 bg-surface-container">
+              <span class="caption text-accent-orange mb-4">Recommended</span>
+              <h3 class="heading text-ghost-white mb-3">Growth</h3>
+              <div class="mb-8">
+                <span class="display text-ghost-white" style="font-size:44px">$799</span>
+                <span class="caption text-muted-ash">/MO</span>
+              </div>
+              <ul class="space-y-3 mb-auto helper">
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> Unlimited packages</li>
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> Branded MCP endpoint</li>
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> Custom <span class="font-mono text-accent-orange">.well-known/*</span></li>
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> Email support</li>
+              </ul>
+              <a href="partner.html" class="mt-8 btn-solid">Scale up</a>
+            </div>
+
+            <!-- Scale -->
+            <div class="flex flex-col p-8">
+              <span class="caption text-muted-ash mb-4">Level 03</span>
+              <h3 class="heading text-ghost-white mb-3">Scale</h3>
+              <div class="mb-8">
+                <span class="display text-ghost-white" style="font-size:44px">$1,999</span>
+                <span class="caption text-muted-ash">/MO</span>
+              </div>
+              <ul class="space-y-3 mb-auto helper">
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> Everything in Growth</li>
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> Advanced analytics</li>
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> 99.9% SLA</li>
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> Priority + Slack support</li>
+              </ul>
+              <a href="partner.html" class="mt-8 btn-outline">Deploy</a>
+            </div>
+
+            <!-- Enterprise -->
+            <div class="flex flex-col p-8">
+              <span class="caption text-muted-ash mb-4">Custom</span>
+              <h3 class="heading text-ghost-white mb-3">Enterprise</h3>
+              <div class="mb-8">
+                <span class="display text-ghost-white" style="font-size:44px">POA</span>
+                <span class="caption text-muted-ash">/YEAR</span>
+              </div>
+              <ul class="space-y-3 mb-auto helper">
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> On-prem deployment</li>
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> Custom integrations</li>
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> White-label UI</li>
+                <li class="flex items-start gap-2 text-on-surface"><span class="material-symbols-outlined text-base text-ghost-white mt-0.5">check_circle</span> Dedicated CSM · 99.99% SLA</li>
+              </ul>
+              <a href="mailto:partners@wiseble.ai?subject=Wiseble%20Enterprise" class="mt-8 btn-outline">Contact sales</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT'S NOT IN THE PRICE -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// What's NOT in the price</p>
+        <h2 class="display text-ghost-white max-w-4xl">What's <span class="text-accent-orange">NOT</span> in the price.</h2>
+
+        <div class="grid md:grid-cols-3 gap-6 mt-16">
+          <article class="border-l-4 border-accent-orange bg-surface-container-low p-8">
+            <h3 class="subheading text-ghost-white uppercase tracking-tight">Zero transaction fees</h3>
+            <p class="helper text-on-surface-variant mt-4">We don't take a percentage of your volume. Your revenue is your revenue. Our fee is fixed, regardless of your scale.</p>
+          </article>
+          <article class="border-l-4 border-accent-orange bg-surface-container-low p-8">
+            <h3 class="subheading text-ghost-white uppercase tracking-tight">Zero gas costs</h3>
+            <p class="helper text-on-surface-variant mt-4">Our settlement layer abstracts blockchain network fees. Agents pay micro-amounts (~$0.001/tx) — you pay the subscription, nothing more.</p>
+          </article>
+          <article class="border-l-4 border-accent-orange bg-surface-container-low p-8">
+            <h3 class="subheading text-ghost-white uppercase tracking-tight">Zero compliance overhead</h3>
+            <p class="helper text-on-surface-variant mt-4">No PSP fees, no chargebacks, no hold periods. We never custody funds, so you never inherit our compliance.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-3xl mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6 text-center">// Protocol FAQ</p>
+        <h2 class="display text-ghost-white text-center">Protocol FAQ.</h2>
+
+        <div class="mt-16 space-y-3">
+          <details class="group border-2 border-[#353535] hover:border-ghost-white p-6 bg-surface-container-lowest transition-colors">
+            <summary class="flex justify-between items-start gap-4">
+              <span class="body-lg text-ghost-white">Do you take a percentage of agent payments?</span>
+              <span class="material-symbols-outlined chev transition-transform text-muted-ash">expand_more</span>
+            </summary>
+            <p class="helper text-on-surface-variant mt-4 pt-4 border-t border-[#222]">No. Agents pay you directly in USDC. We charge a flat monthly SaaS fee. Period.</p>
+          </details>
+
+          <details class="group border-2 border-[#353535] hover:border-ghost-white p-6 bg-surface-container-lowest transition-colors">
+            <summary class="flex justify-between items-start gap-4">
+              <span class="body-lg text-ghost-white">Do you hold or custody our funds?</span>
+              <span class="material-symbols-outlined chev transition-transform text-muted-ash">expand_more</span>
+            </summary>
+            <p class="helper text-on-surface-variant mt-4 pt-4 border-t border-[#222]">Never. USDC settles directly to the wallet address you provide via the Coinbase facilitator. We see metadata only — receipts, hashes, idempotency keys.</p>
+          </details>
+
+          <details class="group border-2 border-[#353535] hover:border-ghost-white p-6 bg-surface-container-lowest transition-colors">
+            <summary class="flex justify-between items-start gap-4">
+              <span class="body-lg text-ghost-white">What if my agent volume grows 10×?</span>
+              <span class="material-symbols-outlined chev transition-transform text-muted-ash">expand_more</span>
+            </summary>
+            <p class="helper text-on-surface-variant mt-4 pt-4 border-t border-[#222]">Your Wiseble fee stays the same. You keep all the upside. That's the point of flat SaaS — your incentives stay aligned with your customers, not with us.</p>
+          </details>
+
+          <details class="group border-2 border-[#353535] hover:border-ghost-white p-6 bg-surface-container-lowest transition-colors">
+            <summary class="flex justify-between items-start gap-4">
+              <span class="body-lg text-ghost-white">Will you introduce a take-rate at v2?</span>
+              <span class="material-symbols-outlined chev transition-transform text-muted-ash">expand_more</span>
+            </summary>
+            <p class="helper text-on-surface-variant mt-4 pt-4 border-t border-[#222]">We may offer a take-rate option in the future as an alternative to SaaS — never as an additional fee. And only after legal review and a full opt-in mechanism.</p>
+          </details>
+
+          <details class="group border-2 border-[#353535] hover:border-ghost-white p-6 bg-surface-container-lowest transition-colors">
+            <summary class="flex justify-between items-start gap-4">
+              <span class="body-lg text-ghost-white">Is there a free pilot?</span>
+              <span class="material-symbols-outlined chev transition-transform text-muted-ash">expand_more</span>
+            </summary>
+            <p class="helper text-on-surface-variant mt-4 pt-4 border-t border-[#222]">Yes. Our first 5–10 design partners get 90 days free in exchange for a public case study and feedback. Apply via the partner form.</p>
+          </details>
+
+          <details class="group border-2 border-[#353535] hover:border-ghost-white p-6 bg-surface-container-lowest transition-colors">
+            <summary class="flex justify-between items-start gap-4">
+              <span class="body-lg text-ghost-white">What happens if I want to leave Wiseble?</span>
+              <span class="material-symbols-outlined chev transition-transform text-muted-ash">expand_more</span>
+            </summary>
+            <p class="helper text-on-surface-variant mt-4 pt-4 border-t border-[#222]">Your customers, code, and wallet stay yours. Removing the middleware is a one-line revert. We don't lock you in technically, contractually, or commercially.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <div class="border-2 border-accent-orange p-12 md:p-20 bg-surface-container-lowest text-center relative overflow-hidden">
+          <div class="absolute -top-24 -right-24 w-64 h-64 bg-accent-orange/10 blur-3xl rounded-full"></div>
+          <h2 class="display text-ghost-white max-w-3xl mx-auto">Ready to stabilize your costs?</h2>
+          <p class="body-lg text-on-surface-variant max-w-2xl mx-auto mt-6">
+            Join as a launch partner today and lock in legacy pricing for the lifetime of your organization.
+          </p>
+          <div class="flex flex-col items-center gap-4 mt-10">
+            <a href="partner.html" class="btn-solid">Join as launch partner</a>
+            <span class="caption text-muted-ash">Early access window closes Q3 2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t-2 border-ghost-white bg-midnight-void">
+    <div class="max-w-wide mx-auto px-6 md:px-10 py-16 grid grid-cols-2 md:grid-cols-4 gap-12">
+      <div class="col-span-2 flex flex-col gap-4">
+        <span class="display" style="font-size:24px;letter-spacing:-0.4px">Wiseble.ai</span>
+        <p class="helper max-w-md">Agent-payable interface for existing data APIs. Your tariffs, your wallet, your brand — invisible plumbing for the agentic web.</p>
+        <p class="caption text-muted-ash mt-4">© 2026 Wiseble · Technical protocol established · Built in Spain</p>
+      </div>
+      <div class="flex flex-col gap-3">
+        <span class="caption text-muted-ash">Product</span>
+        <a href="providers.html" class="caption text-ghost-white hover:text-accent-orange">For providers</a>
+        <a href="developers.html" class="caption text-ghost-white hover:text-accent-orange">For developers</a>
+        <a href="use-cases/index.html" class="caption text-ghost-white hover:text-accent-orange">Use cases</a>
+        <a href="pricing.html" class="caption text-ghost-white hover:text-accent-orange">Pricing</a>
+      </div>
+      <div class="flex flex-col gap-3">
+        <span class="caption text-muted-ash">Company</span>
+        <a href="about.html" class="caption text-ghost-white hover:text-accent-orange">About</a>
+        <a href="partner.html" class="caption text-ghost-white hover:text-accent-orange">Become a partner</a>
+        <a href="mailto:hello@wiseble.ai" class="caption text-ghost-white hover:text-accent-orange">hello@wiseble.ai</a>
+        <a href="#" class="caption text-muted-ash hover:text-accent-orange">Privacy</a>
+        <a href="#" class="caption text-muted-ash hover:text-accent-orange">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

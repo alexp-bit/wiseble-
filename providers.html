@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For providers — Wiseble</title>
+  <meta name="description" content="Add the agent revenue channel in one day. Deep-dive: architecture, integration walkthrough, what you keep, security, idempotency. For scraping, proxy and data-API CTOs." />
+  <link rel="canonical" href="https://wiseble.ai/providers" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="For providers — Wiseble" />
+  <meta property="og:description" content="Add the agent revenue channel in one day." />
+  <meta property="og:url" content="https://wiseble.ai/providers" />
+  <meta property="og:image" content="https://wiseble.ai/assets/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="For providers — Wiseble" />
+  <meta name="twitter:description" content="Add the agent revenue channel in one day." />
+  <meta name="twitter:image" content="https://wiseble.ai/assets/og-default.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/tailwind-config.js"></script>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+
+<body data-page="providers">
+
+  <nav class="fixed top-0 inset-x-0 z-50 bg-midnight-void border-b border-[#222]">
+    <div class="max-w-wide mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <span class="display" style="font-size:22px;letter-spacing:-0.4px">Wiseble.ai</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Home</a>
+        <a href="providers.html" class="label-sg text-ghost-white border-b-2 border-ghost-white pb-1">Providers</a>
+        <a href="developers.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Developers</a>
+        <a href="use-cases/index.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Use cases</a>
+        <a href="pricing.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Pricing</a>
+        <a href="about.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">About</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="partner.html" class="hidden md:inline-flex btn-nav">Become a partner</a>
+        <button id="burger" type="button" class="md:hidden p-2 text-ghost-white" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="mobile-menu md:hidden border-t border-[#222] bg-midnight-void" hidden>
+      <div class="px-6 py-6 flex flex-col gap-4">
+        <a href="index.html" class="label-sg text-muted-ash">Home</a>
+        <a href="providers.html" class="label-sg text-ghost-white">Providers</a>
+        <a href="developers.html" class="label-sg text-muted-ash">Developers</a>
+        <a href="use-cases/index.html" class="label-sg text-muted-ash">Use cases</a>
+        <a href="pricing.html" class="label-sg text-muted-ash">Pricing</a>
+        <a href="about.html" class="label-sg text-muted-ash">About</a>
+        <a href="partner.html" class="btn-nav mt-2">Become a partner</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-16">
+
+    <!-- HERO -->
+    <section class="section">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// For data API providers</p>
+        <h1 class="display-xl text-ghost-white max-w-4xl">
+          Add the <span class="text-accent-orange">agent revenue</span> channel in one day.
+        </h1>
+        <p class="body-lg text-on-surface-variant max-w-3xl mt-8">
+          You already sell API access to humans. Wiseble makes the same product purchasable by AI agents — without you touching your billing, pricing, or customer relationships. One YAML, one middleware, one restart.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 mt-12">
+          <a href="partner.html" class="btn-solid">Become a launch partner</a>
+          <a href="#walkthrough" class="btn-outline">See the walkthrough</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENT TRAFFIC IN NUMBERS -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Agent traffic, in numbers</p>
+        <h2 class="display text-ghost-white max-w-4xl">The biggest new buyer of web data is not human.</h2>
+
+        <div class="grid md:grid-cols-3 gap-6 mt-16">
+          <div class="bracket-frame console-card-low"><span class="bl"></span><span class="br"></span>
+            <div class="display text-accent-orange" style="font-size:48px">$8.2B</div>
+            <p class="caption text-muted-ash mt-3">Estimated AI-driven scraping & web-data spend in 2026.</p>
+            <p class="helper mt-4">From early-2026 industry analyst pre-prints; final ARR by Q3 2026 likely higher.</p>
+          </div>
+          <div class="bracket-frame console-card-low"><span class="bl"></span><span class="br"></span>
+            <div class="display text-accent-orange" style="font-size:48px">24% CAGR</div>
+            <p class="caption text-muted-ash mt-3">Projected growth rate of agent-driven API consumption through 2029.</p>
+            <p class="helper mt-4">Outpacing human SaaS-API growth by ~3×. Source: Coinbase + a16z agent commerce report.</p>
+          </div>
+          <div class="bracket-frame console-card-low"><span class="bl"></span><span class="br"></span>
+            <div class="display text-accent-orange" style="font-size:48px">$50M / 3w</div>
+            <p class="caption text-muted-ash mt-3">Coinbase Agentic.market volume in first three weeks of operation.</p>
+            <p class="helper mt-4">Apify, Bright Data, Perplexity have shipped agent integrations. The question is who is next.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW WISEBLE FITS IN YOUR STACK -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Architecture</p>
+        <h2 class="display text-ghost-white max-w-4xl">How Wiseble fits in your stack.</h2>
+        <p class="body-lg text-on-surface-variant max-w-3xl mt-8">
+          The simplest way to understand Wiseble is to see <span class="text-ghost-white">where we are not</span>. We are not in your data path. We are not in your money path. We sit on the side, translating agent intent into something your existing API already understands.
+        </p>
+
+        <div class="bracket-frame console-card-low mt-16"><span class="bl"></span><span class="br"></span>
+          <div class="grid md:grid-cols-3 gap-8">
+            <!-- Agent column -->
+            <div class="border border-[#353535] p-6 flex flex-col gap-3">
+              <span class="caption text-muted-ash">Agent side</span>
+              <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">smart_toy</span>
+              <h3 class="subheading text-ghost-white">AI Agent</h3>
+              <ul class="helper space-y-1">
+                <li>· Discovers via MCP / agent card</li>
+                <li>· Pays in USDC from its wallet</li>
+                <li>· Calls your API directly</li>
+              </ul>
+            </div>
+
+            <!-- Wiseble column -->
+            <div class="border-2 border-accent-orange p-6 flex flex-col gap-3">
+              <span class="caption text-accent-orange">Wiseble (we)</span>
+              <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">hub</span>
+              <h3 class="subheading text-ghost-white">Verification &amp; routing</h3>
+              <ul class="helper space-y-1">
+                <li>· Hosts <span class="font-mono text-accent-orange">/.well-known/x402</span></li>
+                <li>· Validates payment receipts</li>
+                <li>· Calls your <span class="font-mono">issueKey</span> hook</li>
+              </ul>
+              <p class="caption text-muted-ash mt-2">Not in data path. Not in money path.</p>
+            </div>
+
+            <!-- Provider column -->
+            <div class="border border-[#353535] p-6 flex flex-col gap-3">
+              <span class="caption text-muted-ash">Your side</span>
+              <span class="material-symbols-outlined text-ghost-white" style="font-size:32px">dns</span>
+              <h3 class="subheading text-ghost-white">Your existing API</h3>
+              <ul class="helper space-y-1">
+                <li>· Stripe / Chargebee / custom billing</li>
+                <li>· Your wallet receives USDC</li>
+                <li>· Your <span class="font-mono">issueApiKey()</span> runs unchanged</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 border-t border-[#222] pt-8">
+            <div class="text-center">
+              <div class="display text-ghost-white" style="font-size:32px">5kB</div>
+              <p class="caption text-muted-ash mt-2">SDK middleware size</p>
+            </div>
+            <div class="text-center">
+              <div class="display text-ghost-white" style="font-size:32px">1 line</div>
+              <p class="caption text-muted-ash mt-2">Code in your handler</p>
+            </div>
+            <div class="text-center">
+              <div class="display text-ghost-white" style="font-size:32px">0%</div>
+              <p class="caption text-muted-ash mt-2">Of your revenue we take</p>
+            </div>
+            <div class="text-center">
+              <div class="display text-ghost-white" style="font-size:32px">0$</div>
+              <p class="caption text-muted-ash mt-2">USDC we ever custody</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTEGRATION WALKTHROUGH -->
+    <section id="walkthrough" class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Walkthrough</p>
+        <h2 class="display text-ghost-white max-w-4xl">Five steps. Production by next week.</h2>
+
+        <ol class="grid md:grid-cols-2 gap-6 mt-16">
+
+          <li class="bracket-frame console-card-low"><span class="bl"></span><span class="br"></span>
+            <div class="flex items-baseline gap-4 mb-3">
+              <span class="display" style="font-size:36px">01</span>
+              <h3 class="subheading text-ghost-white">Apply &amp; receive your API key</h3>
+            </div>
+            <p class="helper text-on-surface-variant">After we approve your application, you get a Wiseble dashboard, an API key, and a hook secret. ~10 minutes.</p>
+          </li>
+
+          <li class="bracket-frame console-card-low"><span class="bl"></span><span class="br"></span>
+            <div class="flex items-baseline gap-4 mb-3">
+              <span class="display" style="font-size:36px">02</span>
+              <h3 class="subheading text-ghost-white">Define packages in YAML</h3>
+            </div>
+            <p class="helper text-on-surface-variant">Mirror your existing pricing. Each package has price (USDC), duration, and credit allowance. No new SKUs.</p>
+          </li>
+
+          <li class="bracket-frame console-card-low"><span class="bl"></span><span class="br"></span>
+            <div class="flex items-baseline gap-4 mb-3">
+              <span class="display" style="font-size:36px">03</span>
+              <h3 class="subheading text-ghost-white">Implement the provider hook</h3>
+            </div>
+            <p class="helper text-on-surface-variant">A single HTTPS endpoint at <span class="font-mono text-accent-orange">/wiseble/issue</span>. It calls your existing <span class="font-mono">createUser</span> + <span class="font-mono">issueApiKey</span> logic, returns the key.</p>
+          </li>
+
+          <li class="bracket-frame console-card-low"><span class="bl"></span><span class="br"></span>
+            <div class="flex items-baseline gap-4 mb-3">
+              <span class="display" style="font-size:36px">04</span>
+              <h3 class="subheading text-ghost-white">Wrap your route</h3>
+            </div>
+            <p class="helper text-on-surface-variant">Drop <span class="font-mono">wiseble.protect()</span> middleware in front of your existing handler. Express, Fastify, Hono, or plain HTTP — same one-line pattern.</p>
+          </li>
+
+          <li class="bracket-frame console-card-low md:col-span-2"><span class="bl"></span><span class="br"></span>
+            <div class="flex items-baseline gap-4 mb-3">
+              <span class="display" style="font-size:36px">05</span>
+              <h3 class="subheading text-ghost-white">Restart &amp; test with a sample agent</h3>
+            </div>
+            <p class="helper text-on-surface-variant">We provide a test agent wallet on Base Sepolia. Verify the full flow end-to-end: payment → key issuance → API call → response. When all green, switch to mainnet via one config flag.</p>
+          </li>
+        </ol>
+
+        <p class="helper text-on-surface-variant max-w-2xl mt-12">
+          Average launch partner reaches <span class="text-ghost-white">staging in &lt;1 day, production in &lt;1 week</span>. The bottleneck is internal QA, not our SDK.
+        </p>
+      </div>
+    </section>
+
+    <!-- HOOK CONTRACT (provider-hook.md) -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Provider hook contract</p>
+        <h2 class="display text-ghost-white max-w-4xl">One endpoint. One responsibility.</h2>
+
+        <div class="grid lg:grid-cols-2 gap-6 mt-16 items-start">
+          <div class="code-block p-6">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#222]">
+              <span class="caption text-ghost-white">POST /wiseble/issue</span>
+              <button type="button" class="copy-btn flex items-center gap-1 caption text-muted-ash hover:text-ghost-white" data-target="hook-req">
+                <span class="material-symbols-outlined text-sm">content_copy</span><span>Copy</span>
+              </button>
+            </div>
+<pre id="hook-req" class="overflow-x-auto"><code><span class="tok-com">// Request body — Wiseble → your endpoint</span>
+<span class="tok-pun">{</span>
+  <span class="tok-key">"event_id"</span><span class="tok-pun">:</span> <span class="tok-str">"evt_01HZ3..."</span><span class="tok-pun">,</span>
+  <span class="tok-key">"package_id"</span><span class="tok-pun">:</span> <span class="tok-str">"freelancer"</span><span class="tok-pun">,</span>
+  <span class="tok-key">"agent_wallet"</span><span class="tok-pun">:</span> <span class="tok-str">"0x7f3a..."</span><span class="tok-pun">,</span>
+  <span class="tok-key">"amount_usdc"</span><span class="tok-pun">:</span> <span class="tok-str">"49.00"</span><span class="tok-pun">,</span>
+  <span class="tok-key">"chain"</span><span class="tok-pun">:</span> <span class="tok-str">"base"</span><span class="tok-pun">,</span>
+  <span class="tok-key">"tx_hash"</span><span class="tok-pun">:</span> <span class="tok-str">"0x9c1..."</span><span class="tok-pun">,</span>
+  <span class="tok-key">"idempotency_key"</span><span class="tok-pun">:</span> <span class="tok-str">"idem_01HZ3..."</span>
+<span class="tok-pun">}</span></code></pre>
+          </div>
+
+          <div class="code-block p-6">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#222]">
+              <span class="caption text-ghost-white">200 OK — your response</span>
+              <button type="button" class="copy-btn flex items-center gap-1 caption text-muted-ash hover:text-ghost-white" data-target="hook-res">
+                <span class="material-symbols-outlined text-sm">content_copy</span><span>Copy</span>
+              </button>
+            </div>
+<pre id="hook-res" class="overflow-x-auto"><code><span class="tok-com">// Response — your endpoint → Wiseble</span>
+<span class="tok-pun">{</span>
+  <span class="tok-key">"api_key"</span><span class="tok-pun">:</span> <span class="tok-str">"sk_live_a8f..."</span><span class="tok-pun">,</span>
+  <span class="tok-key">"expires_at"</span><span class="tok-pun">:</span> <span class="tok-str">"2026-06-01T00:00Z"</span><span class="tok-pun">,</span>
+  <span class="tok-key">"account_id"</span><span class="tok-pun">:</span> <span class="tok-str">"acc_99x..."</span>
+<span class="tok-pun">}</span>
+
+<span class="tok-com">// On 5xx: we retry with exponential backoff,</span>
+<span class="tok-com">// then auto-refund USDC to the agent wallet.</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUILT FOR PRODUCTION -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Production-grade</p>
+        <h2 class="display text-ghost-white max-w-4xl">Built for engineering teams that ship.</h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+          <article class="console-card-soft flex flex-col gap-3">
+            <span class="material-symbols-outlined text-accent-orange" style="font-size:28px">verified_user</span>
+            <h3 class="subheading text-ghost-white">Signed webhooks</h3>
+            <p class="helper text-on-surface-variant">Every hook call is HMAC-signed with your secret. Replay protection via timestamp window. We never trust our own network.</p>
+          </article>
+          <article class="console-card-soft flex flex-col gap-3">
+            <span class="material-symbols-outlined text-accent-orange" style="font-size:28px">replay</span>
+            <h3 class="subheading text-ghost-white">Idempotency by default</h3>
+            <p class="helper text-on-surface-variant">Every payment carries an idempotency key. Network glitches can never charge an agent twice or issue duplicate keys.</p>
+          </article>
+          <article class="console-card-soft flex flex-col gap-3">
+            <span class="material-symbols-outlined text-accent-orange" style="font-size:28px">history</span>
+            <h3 class="subheading text-ghost-white">Audit trail per transaction</h3>
+            <p class="helper text-on-surface-variant">Every payment, retry, refund, key issuance — recorded with a chain-anchored receipt. Export to CSV or S3 anytime.</p>
+          </article>
+          <article class="console-card-soft flex flex-col gap-3">
+            <span class="material-symbols-outlined text-accent-orange" style="font-size:28px">monitoring</span>
+            <h3 class="subheading text-ghost-white">Observability hooks</h3>
+            <p class="helper text-on-surface-variant">Stream events to Datadog, Grafana, or any HTTP sink. We don't replace your observability — we feed it.</p>
+          </article>
+          <article class="console-card-soft flex flex-col gap-3">
+            <span class="material-symbols-outlined text-accent-orange" style="font-size:28px">timer</span>
+            <h3 class="subheading text-ghost-white">99.9% SLA on Growth+</h3>
+            <p class="helper text-on-surface-variant">Multi-region deploy on Cloudflare + Vercel Edge. Status page, paging, runbook public.</p>
+          </article>
+          <article class="console-card-soft flex flex-col gap-3">
+            <span class="material-symbols-outlined text-accent-orange" style="font-size:28px">currency_exchange</span>
+            <h3 class="subheading text-ghost-white">Automated refunds</h3>
+            <p class="helper text-on-surface-variant">If your hook fails after retries, we initiate USDC refund to the agent wallet. You never deal with broken transactions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// The boundary</p>
+        <h2 class="display text-ghost-white max-w-4xl">What you keep. What we add. What we never touch.</h2>
+
+        <div class="overflow-x-auto mt-16 bracket-frame"><span class="bl"></span><span class="br"></span>
+          <table class="compare-table w-full text-left">
+            <thead>
+              <tr><th>Layer</th><th>You keep</th><th>We add</th><th>We never touch</th></tr>
+            </thead>
+            <tbody class="text-on-surface-variant">
+              <tr><td>Billing</td><td>Stripe, Chargebee, custom — your call</td><td>x402 verification before issuing access</td><td>Your invoices</td></tr>
+              <tr><td>Pricing</td><td>Your existing tariffs, unchanged</td><td>A YAML mirror agents can read</td><td>Your pricing decisions</td></tr>
+              <tr><td>Wallet</td><td>Direct USDC settlement to your address</td><td>Auto-generated payment requirements</td><td>Your funds — never custody</td></tr>
+              <tr><td>Brand</td><td>Your name on every interface</td><td>Optional branded MCP endpoint</td><td>Your customer relationship</td></tr>
+              <tr><td>API</td><td>Your existing handlers and code</td><td>A 5KB Express/Fastify middleware</td><td>Your API logic</td></tr>
+              <tr><td>Compliance</td><td>Your KYC, your ToS, your jurisdiction</td><td>Per-transaction audit trail</td><td>Your legal posture</td></tr>
+              <tr><td>Refunds</td><td>Your policy</td><td>Automatic refund webhook on hook failures</td><td>Your dispute resolution</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING RECAP -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Pricing recap</p>
+        <h2 class="display text-ghost-white max-w-4xl">$299–$1,999/month. Flat. No revenue share.</h2>
+
+        <p class="body-lg text-on-surface-variant max-w-3xl mt-8">
+          Volume goes 10×, your Wiseble bill stays the same. Your revenue is your revenue.
+        </p>
+
+        <a href="pricing.html" class="btn-outline mt-12">See full pricing</a>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <div class="border-2 border-accent-orange p-12 md:p-20 bg-surface-container-lowest text-center relative overflow-hidden">
+          <div class="absolute -top-24 -right-24 w-64 h-64 bg-accent-orange/10 blur-3xl rounded-full"></div>
+          <p class="caption text-accent-orange mb-6">// Launch partner program</p>
+          <h2 class="display text-ghost-white max-w-3xl mx-auto">Ten launch slots. Ninety days free. One quarter to ship.</h2>
+          <p class="body-lg text-on-surface-variant max-w-2xl mx-auto mt-8">Direct line to the founder. White-glove integration support. Public case study in exchange.</p>
+          <div class="flex flex-col items-center gap-4 mt-10">
+            <a href="partner.html" class="btn-solid">Apply to be a launch partner</a>
+            <span class="caption text-muted-ash">Early access window closes Q3 2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t-2 border-ghost-white bg-midnight-void">
+    <div class="max-w-wide mx-auto px-6 md:px-10 py-16 grid grid-cols-2 md:grid-cols-4 gap-12">
+      <div class="col-span-2 flex flex-col gap-4">
+        <span class="display" style="font-size:24px;letter-spacing:-0.4px">Wiseble.ai</span>
+        <p class="helper max-w-md">Agent-payable interface for existing data APIs. Your tariffs, your wallet, your brand — invisible plumbing for the agentic web.</p>
+        <p class="caption text-muted-ash mt-4">© 2026 Wiseble · Technical protocol established · Built in Spain</p>
+      </div>
+      <div class="flex flex-col gap-3">
+        <span class="caption text-muted-ash">Product</span>
+        <a href="providers.html" class="caption text-ghost-white hover:text-accent-orange">For providers</a>
+        <a href="developers.html" class="caption text-ghost-white hover:text-accent-orange">For developers</a>
+        <a href="use-cases/index.html" class="caption text-ghost-white hover:text-accent-orange">Use cases</a>
+        <a href="pricing.html" class="caption text-ghost-white hover:text-accent-orange">Pricing</a>
+      </div>
+      <div class="flex flex-col gap-3">
+        <span class="caption text-muted-ash">Company</span>
+        <a href="about.html" class="caption text-ghost-white hover:text-accent-orange">About</a>
+        <a href="partner.html" class="caption text-ghost-white hover:text-accent-orange">Become a partner</a>
+        <a href="mailto:hello@wiseble.ai" class="caption text-ghost-white hover:text-accent-orange">hello@wiseble.ai</a>
+        <a href="#" class="caption text-muted-ash hover:text-accent-orange">Privacy</a>
+        <a href="#" class="caption text-muted-ash hover:text-accent-orange">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

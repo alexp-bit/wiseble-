@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For developers — Wiseble</title>
+  <meta name="description" content="Web data for your agents. Pay-as-you-go. No signup. Connect Claude Desktop, Cursor, OpenAI Agents SDK or any x402 client to a network of scraping providers." />
+  <link rel="canonical" href="https://wiseble.ai/developers" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="For developers — Wiseble" />
+  <meta property="og:description" content="Web data for your agents. Pay-as-you-go. No signup." />
+  <meta property="og:url" content="https://wiseble.ai/developers" />
+  <meta property="og:image" content="https://wiseble.ai/assets/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/tailwind-config.js"></script>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+
+<body data-page="developers">
+
+  <nav class="fixed top-0 inset-x-0 z-50 bg-midnight-void border-b border-[#222]">
+    <div class="max-w-wide mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <span class="display" style="font-size:22px;letter-spacing:-0.4px">Wiseble.ai</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Home</a>
+        <a href="providers.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Providers</a>
+        <a href="developers.html" class="label-sg text-ghost-white border-b-2 border-ghost-white pb-1">Developers</a>
+        <a href="use-cases/index.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Use cases</a>
+        <a href="pricing.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Pricing</a>
+        <a href="about.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">About</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="partner.html" class="hidden md:inline-flex btn-nav">Become a partner</a>
+        <button id="burger" type="button" class="md:hidden p-2 text-ghost-white" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="mobile-menu md:hidden border-t border-[#222] bg-midnight-void" hidden>
+      <div class="px-6 py-6 flex flex-col gap-4">
+        <a href="index.html" class="label-sg text-muted-ash">Home</a>
+        <a href="providers.html" class="label-sg text-muted-ash">Providers</a>
+        <a href="developers.html" class="label-sg text-ghost-white">Developers</a>
+        <a href="use-cases/index.html" class="label-sg text-muted-ash">Use cases</a>
+        <a href="pricing.html" class="label-sg text-muted-ash">Pricing</a>
+        <a href="about.html" class="label-sg text-muted-ash">About</a>
+        <a href="partner.html" class="btn-nav mt-2">Become a partner</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-16">
+
+    <!-- HERO -->
+    <section class="section">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// For agent builders</p>
+        <h1 class="display-xl text-ghost-white max-w-4xl">
+          Web data for your agents.<br/><span class="text-accent-orange">Pay-as-you-go</span>. No signup.
+        </h1>
+        <p class="body-lg text-on-surface-variant max-w-3xl mt-8">
+          Plug your AI agent into a network of scraping and proxy providers. No accounts to create, no API keys to manage, no credit cards to enter. Your agent's wallet pays. The provider's API responds.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 mt-12">
+          <a href="#quickstart" class="btn-solid">Quick start</a>
+          <a href="use-cases/index.html" class="btn-outline">Browse use cases</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FRICTION REMOVED -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// The friction we removed</p>
+        <h2 class="display text-ghost-white max-w-4xl">No signups. No keys. No top-ups.</h2>
+
+        <div class="grid md:grid-cols-3 gap-6 mt-16">
+          <article class="bracket-frame console-card-low"><span class="bl"></span><span class="br"></span>
+            <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">person_off</span>
+            <h3 class="subheading text-ghost-white mt-3">No human signup</h3>
+            <p class="helper text-on-surface-variant mt-3">No email verification. No "click I agree." Your agent's wallet is the identity. Discovery works the same way every time.</p>
+          </article>
+          <article class="bracket-frame console-card-low"><span class="bl"></span><span class="br"></span>
+            <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">key_off</span>
+            <h3 class="subheading text-ghost-white mt-3">No keys in <span class="font-mono text-accent-orange">.env</span></h3>
+            <p class="helper text-on-surface-variant mt-3">No long-lived secrets to manage, rotate, or accidentally commit. Keys are scoped to your wallet, expire with the plan, and re-issue automatically.</p>
+          </article>
+          <article class="bracket-frame console-card-low"><span class="bl"></span><span class="br"></span>
+            <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">paid</span>
+            <h3 class="subheading text-ghost-white mt-3">No manual top-up</h3>
+            <p class="helper text-on-surface-variant mt-3">Plan running low? The agent buys the next package automatically — within the budget you set. No human in the loop, no email queue.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICKSTART — clients -->
+    <section id="quickstart" class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Connect in 5 minutes</p>
+        <h2 class="display text-ghost-white max-w-4xl">Pick your client. Drop in the config.</h2>
+
+        <div class="grid lg:grid-cols-2 gap-6 mt-16">
+
+          <!-- Claude Desktop -->
+          <div class="code-block p-6">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#222]">
+              <span class="caption text-ghost-white">Claude Desktop · ~/.claude_config.json</span>
+              <button type="button" class="copy-btn flex items-center gap-1 caption text-muted-ash hover:text-ghost-white" data-target="claude-config">
+                <span class="material-symbols-outlined text-sm">content_copy</span><span>Copy</span>
+              </button>
+            </div>
+<pre id="claude-config" class="overflow-x-auto"><code><span class="tok-pun">{</span>
+  <span class="tok-key">"mcpServers"</span><span class="tok-pun">:</span> <span class="tok-pun">{</span>
+    <span class="tok-key">"wiseble"</span><span class="tok-pun">:</span> <span class="tok-pun">{</span>
+      <span class="tok-key">"command"</span><span class="tok-pun">:</span> <span class="tok-str">"npx"</span><span class="tok-pun">,</span>
+      <span class="tok-key">"args"</span><span class="tok-pun">:</span> <span class="tok-pun">[</span><span class="tok-str">"@wiseble/mcp-client"</span><span class="tok-pun">],</span>
+      <span class="tok-key">"env"</span><span class="tok-pun">:</span> <span class="tok-pun">{</span>
+        <span class="tok-key">"WISEBLE_WALLET_PROVIDER"</span><span class="tok-pun">:</span> <span class="tok-str">"coinbase-cdp"</span>
+      <span class="tok-pun">}</span>
+    <span class="tok-pun">}</span>
+  <span class="tok-pun">}</span>
+<span class="tok-pun">}</span></code></pre>
+          </div>
+
+          <!-- Cursor -->
+          <div class="code-block p-6">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#222]">
+              <span class="caption text-ghost-white">Cursor · settings.json</span>
+              <button type="button" class="copy-btn flex items-center gap-1 caption text-muted-ash hover:text-ghost-white" data-target="cursor-config">
+                <span class="material-symbols-outlined text-sm">content_copy</span><span>Copy</span>
+              </button>
+            </div>
+<pre id="cursor-config" class="overflow-x-auto"><code><span class="tok-pun">{</span>
+  <span class="tok-key">"mcp.servers"</span><span class="tok-pun">:</span> <span class="tok-pun">{</span>
+    <span class="tok-key">"wiseble"</span><span class="tok-pun">:</span> <span class="tok-pun">{</span>
+      <span class="tok-key">"transport"</span><span class="tok-pun">:</span> <span class="tok-str">"http"</span><span class="tok-pun">,</span>
+      <span class="tok-key">"url"</span><span class="tok-pun">:</span> <span class="tok-str">"https://mcp.wiseble.ai"</span><span class="tok-pun">,</span>
+      <span class="tok-key">"wallet"</span><span class="tok-pun">:</span> <span class="tok-str">"coinbase-cdp"</span>
+    <span class="tok-pun">}</span>
+  <span class="tok-pun">}</span>
+<span class="tok-pun">}</span></code></pre>
+          </div>
+
+          <!-- OpenAI Agents SDK -->
+          <div class="code-block p-6">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#222]">
+              <span class="caption text-ghost-white">OpenAI Agents SDK · agent.py</span>
+              <button type="button" class="copy-btn flex items-center gap-1 caption text-muted-ash hover:text-ghost-white" data-target="openai-agent">
+                <span class="material-symbols-outlined text-sm">content_copy</span><span>Copy</span>
+              </button>
+            </div>
+<pre id="openai-agent" class="overflow-x-auto"><code><span class="tok-pun">from</span> <span class="tok-fn">openai_agents</span> <span class="tok-pun">import</span> <span class="tok-fn">Agent</span>
+<span class="tok-pun">from</span> <span class="tok-fn">wiseble</span> <span class="tok-pun">import</span> <span class="tok-fn">tools</span>
+
+<span class="tok-fn">agent</span> <span class="tok-pun">=</span> <span class="tok-fn">Agent</span><span class="tok-pun">(</span>
+  <span class="tok-key">model</span><span class="tok-pun">=</span><span class="tok-str">"gpt-4o"</span><span class="tok-pun">,</span>
+  <span class="tok-key">tools</span><span class="tok-pun">=</span><span class="tok-fn">tools</span><span class="tok-pun">.</span><span class="tok-fn">discover</span><span class="tok-pun">(</span>
+    <span class="tok-key">wallet</span><span class="tok-pun">=</span><span class="tok-fn">CoinbaseWallet</span><span class="tok-pun">(),</span>
+    <span class="tok-key">budget</span><span class="tok-pun">=</span><span class="tok-str">"5.00 USDC"</span>
+  <span class="tok-pun">)</span>
+<span class="tok-pun">)</span></code></pre>
+          </div>
+
+          <!-- Plain fetch + x402 -->
+          <div class="code-block p-6">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#222]">
+              <span class="caption text-ghost-white">Plain fetch · with x402-aware client</span>
+              <button type="button" class="copy-btn flex items-center gap-1 caption text-muted-ash hover:text-ghost-white" data-target="fetch-x402">
+                <span class="material-symbols-outlined text-sm">content_copy</span><span>Copy</span>
+              </button>
+            </div>
+<pre id="fetch-x402" class="overflow-x-auto"><code><span class="tok-pun">import</span> <span class="tok-pun">{</span> <span class="tok-fn">x402Fetch</span> <span class="tok-pun">}</span> <span class="tok-pun">from</span> <span class="tok-str">'@coinbase/x402'</span>
+
+<span class="tok-pun">const</span> <span class="tok-fn">res</span> <span class="tok-pun">=</span> <span class="tok-pun">await</span> <span class="tok-fn">x402Fetch</span><span class="tok-pun">(</span>
+  <span class="tok-str">'https://api.scraperapi.com/v1/scrape'</span><span class="tok-pun">,</span>
+  <span class="tok-pun">{</span>
+    <span class="tok-key">wallet</span><span class="tok-pun">:</span> <span class="tok-fn">myWallet</span><span class="tok-pun">,</span>
+    <span class="tok-key">maxBudget</span><span class="tok-pun">:</span> <span class="tok-str">'0.50 USDC'</span><span class="tok-pun">,</span>
+    <span class="tok-key">body</span><span class="tok-pun">:</span> <span class="tok-fn">JSON</span><span class="tok-pun">.</span><span class="tok-fn">stringify</span><span class="tok-pun">({</span> <span class="tok-key">url</span><span class="tok-pun">:</span> <span class="tok-str">'https://...'</span> <span class="tok-pun">})</span>
+  <span class="tok-pun">}</span>
+<span class="tok-pun">)</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW PAYMENT WORKS — 6 steps -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// How payment works for your agent</p>
+        <h2 class="display text-ghost-white max-w-4xl">Six steps. One signed transaction.</h2>
+
+        <ol class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+          <li class="console-card-soft flex flex-col gap-3">
+            <span class="display text-muted-ash" style="font-size:36px">01</span>
+            <h3 class="subheading text-ghost-white">Tool discovery</h3>
+            <p class="helper text-on-surface-variant">Your agent discovers <span class="font-mono text-accent-orange">scraperapi.purchase_freelancer_plan</span> through MCP.</p>
+          </li>
+          <li class="console-card-soft flex flex-col gap-3">
+            <span class="display text-muted-ash" style="font-size:36px">02</span>
+            <h3 class="subheading text-ghost-white">402 Payment Required</h3>
+            <p class="helper text-on-surface-variant">The tool returns price ($49 USDC) and the provider's wallet address.</p>
+          </li>
+          <li class="console-card-soft flex flex-col gap-3">
+            <span class="display text-muted-ash" style="font-size:36px">03</span>
+            <h3 class="subheading text-ghost-white">Wallet signs &amp; submits</h3>
+            <p class="helper text-on-surface-variant">Your agent's wallet signs the payment and submits it on Base.</p>
+          </li>
+          <li class="console-card-soft flex flex-col gap-3">
+            <span class="display text-muted-ash" style="font-size:36px">04</span>
+            <h3 class="subheading text-ghost-white">Provider issues key</h3>
+            <p class="helper text-on-surface-variant">A real API key, scoped to your wallet, valid for the plan duration.</p>
+          </li>
+          <li class="console-card-soft flex flex-col gap-3">
+            <span class="display text-muted-ash" style="font-size:36px">05</span>
+            <h3 class="subheading text-ghost-white">Use the API normally</h3>
+            <p class="helper text-on-surface-variant">Subsequent calls use the issued key. The provider sees a normal customer.</p>
+          </li>
+          <li class="console-card-soft flex flex-col gap-3">
+            <span class="display text-muted-ash" style="font-size:36px">06</span>
+            <h3 class="subheading text-ghost-white">Auto top-up</h3>
+            <p class="helper text-on-surface-variant">When the plan runs out, the agent calls <span class="font-mono text-accent-orange">top_up_package</span> within budget — no human in the loop.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- WALLET OPTIONS -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Wallet options</p>
+        <h2 class="display text-ghost-white max-w-4xl">Bring your wallet.</h2>
+
+        <div class="grid md:grid-cols-3 gap-6 mt-16">
+          <article class="border-2 border-[#353535] hover:border-ghost-white p-6 transition-colors">
+            <h3 class="subheading text-ghost-white">Coinbase CDP</h3>
+            <p class="helper text-on-surface-variant mt-3">Server-managed wallets, programmatic signing, audit trail. Best for production agents.</p>
+          </article>
+          <article class="border-2 border-[#353535] hover:border-ghost-white p-6 transition-colors">
+            <h3 class="subheading text-ghost-white">Crossmint</h3>
+            <p class="helper text-on-surface-variant mt-3">Smart wallets with policy controls, spending limits, multi-sig. Best for shared agent infra.</p>
+          </article>
+          <article class="border-2 border-[#353535] hover:border-ghost-white p-6 transition-colors">
+            <h3 class="subheading text-ghost-white">Privy</h3>
+            <p class="helper text-on-surface-variant mt-3">Email-recoverable embedded wallets. Best for consumer-facing agent products.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- AVAILABLE PROVIDERS -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Available providers</p>
+        <h2 class="display text-ghost-white max-w-4xl">Catalog launching with our first partners.</h2>
+
+        <div class="bracket-frame console-card-low mt-16"><span class="bl"></span><span class="br"></span>
+          <p class="body-lg text-on-surface-variant">
+            We're onboarding 5–10 launch partners through 2026. Each new provider becomes discoverable across MCP, OpenAPI, and an x402 agent card simultaneously.
+          </p>
+          <p class="body-lg text-ghost-white mt-6">
+            Are you a provider? <a href="providers.html" class="text-accent-orange underline">See the integration guide →</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <div class="border-2 border-accent-orange p-12 md:p-20 bg-surface-container-lowest text-center relative overflow-hidden">
+          <div class="absolute -top-24 -right-24 w-64 h-64 bg-accent-orange/10 blur-3xl rounded-full"></div>
+          <h2 class="display text-ghost-white max-w-3xl mx-auto">Build agents that buy what they need.</h2>
+          <p class="body-lg text-on-surface-variant max-w-2xl mx-auto mt-6">
+            No keys to manage. No top-ups to schedule. No vendors to negotiate with. Your agent. Your wallet. Your budget.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+            <a href="#quickstart" class="btn-solid">Read the docs</a>
+            <a href="mailto:hello@wiseble.ai?subject=Wiseble%20agent%20builders" class="btn-outline">Join the agent builders</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t-2 border-ghost-white bg-midnight-void">
+    <div class="max-w-wide mx-auto px-6 md:px-10 py-16 grid grid-cols-2 md:grid-cols-4 gap-12">
+      <div class="col-span-2 flex flex-col gap-4">
+        <span class="display" style="font-size:24px;letter-spacing:-0.4px">Wiseble.ai</span>
+        <p class="helper max-w-md">Agent-payable interface for existing data APIs. Your tariffs, your wallet, your brand — invisible plumbing for the agentic web.</p>
+        <p class="caption text-muted-ash mt-4">© 2026 Wiseble · Technical protocol established · Built in Spain</p>
+      </div>
+      <div class="flex flex-col gap-3">
+        <span class="caption text-muted-ash">Product</span>
+        <a href="providers.html" class="caption text-ghost-white hover:text-accent-orange">For providers</a>
+        <a href="developers.html" class="caption text-ghost-white hover:text-accent-orange">For developers</a>
+        <a href="use-cases/index.html" class="caption text-ghost-white hover:text-accent-orange">Use cases</a>
+        <a href="pricing.html" class="caption text-ghost-white hover:text-accent-orange">Pricing</a>
+      </div>
+      <div class="flex flex-col gap-3">
+        <span class="caption text-muted-ash">Company</span>
+        <a href="about.html" class="caption text-ghost-white hover:text-accent-orange">About</a>
+        <a href="partner.html" class="caption text-ghost-white hover:text-accent-orange">Become a partner</a>
+        <a href="mailto:hello@wiseble.ai" class="caption text-ghost-white hover:text-accent-orange">hello@wiseble.ai</a>
+        <a href="#" class="caption text-muted-ash hover:text-accent-orange">Privacy</a>
+        <a href="#" class="caption text-muted-ash hover:text-accent-orange">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
