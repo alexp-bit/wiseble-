@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wiseble — Make your scraping API agent-payable in one day</title>
+  <meta name="description" content="Wiseble adds an agent-payable interface to your existing scraping API. Your tariffs, your billing, your wallet, your brand — all stay yours. We add x402, MCP, and a wallet→account bridge." />
+  <link rel="canonical" href="https://wiseble.ai/" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <!-- OG / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Wiseble — Make your scraping API agent-payable in one day" />
+  <meta property="og:description" content="Add the agent revenue channel without rebuilding your billing." />
+  <meta property="og:url" content="https://wiseble.ai/" />
+  <meta property="og:image" content="https://wiseble.ai/assets/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Wiseble — Make your scraping API agent-payable in one day" />
+  <meta name="twitter:description" content="Add the agent revenue channel without rebuilding your billing." />
+  <meta name="twitter:image" content="https://wiseble.ai/assets/og-default.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'midnight-void': '#000000',
+            'ghost-white': '#ffffff',
+            'muted-ash': '#666666',
+            'accent-orange': '#ff5c00',
+            surface: '#131313',
+            'surface-container': '#1f1f1f',
+            'surface-container-low': '#1b1b1b',
+            'surface-container-lowest': '#0e0e0e',
+            'surface-container-high': '#2a2a2a',
+            'on-surface': '#e2e2e2',
+            'on-surface-variant': '#c4c7c8',
+            outline: '#8e9192',
+            'outline-variant': '#444748',
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+            heading: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          spacing: {
+            xs: '10px', sm: '11px', md: '17px', lg: '25px', xl: '30px', xxl: '35px',
+            'section-gap': '156px',
+          },
+          maxWidth: { content: '1280px', wide: '1440px' },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ============================== Wiseble Virtual System ============================== */
+    :root {
+      --color-midnight-void: #000000;
+      --color-ghost-white: #ffffff;
+      --color-muted-ash: #666666;
+      --color-accent-orange: #ff5c00;
+      --color-surface-container-lowest: #0e0e0e;
+      --color-surface-container-low: #1b1b1b;
+      --color-surface-container: #1f1f1f;
+    }
+
+    body {
+      background: #000000;
+      color: #ffffff;
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 12px;
+      line-height: 1.2;
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+      margin: 0;
+      padding: 0;
+    }
+
+    .display-xl { font-family: 'Space Grotesk', sans-serif; font-size: clamp(40px, 7vw, 72px); font-weight: 500; line-height: 1.1; letter-spacing: -1.4px; }
+    .display { font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 6vw, 60px); font-weight: 500; line-height: 1.1; letter-spacing: -1.2px; }
+    .heading { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 3.2vw, 30px); font-weight: 500; line-height: 1.2; letter-spacing: -0.6px; }
+    .subheading { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 500; line-height: 1.2; letter-spacing: -0.3px; }
+    .body-lg { font-family: Inter, sans-serif; font-size: 16px; font-weight: 500; line-height: 1.5; letter-spacing: 0; }
+    .body-base { font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; line-height: 1.5; }
+    .helper { font-family: Inter, sans-serif; font-size: 13px; font-weight: 400; line-height: 1.5; color: var(--color-muted-ash); }
+    .caption { font-family: Inter, sans-serif; font-size: 10px; font-weight: 500; line-height: 1; letter-spacing: 0.12em; text-transform: uppercase; }
+    .label-sg { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 500; line-height: 1; letter-spacing: 0.18em; text-transform: uppercase; }
+
+    /* Outlined buttons (per design system) */
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 18px 30px; border: 2px solid #ffffff; background: transparent;
+      color: #ffffff; border-radius: 10px;
+      font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer;
+      transition: background-color .15s ease, color .15s ease;
+    }
+    .btn-outline:hover { background: #ffffff; color: #000000; }
+
+    .btn-solid {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 18px 30px; border: 2px solid #ffffff; background: #ffffff;
+      color: #000000; border-radius: 10px;
+      font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer;
+      transition: background-color .15s ease, color .15s ease;
+    }
+    .btn-solid:hover { background: transparent; color: #ffffff; }
+
+    .btn-nav {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 20px; border: 2px solid #ffffff; background: transparent;
+      color: #ffffff; border-radius: 10px;
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+      transition: background-color .15s ease, color .15s ease;
+    }
+    .btn-nav:hover { background: #ffffff; color: #000000; }
+
+    /* Cards: 2px white border, dark fill */
+    .console-card {
+      border: 2px solid #ffffff; background: #0e0e0e; padding: 30px;
+      transition: border-color .15s ease;
+    }
+    .console-card-low { border: 2px solid #ffffff; background: #131313; padding: 30px; }
+    .console-card-soft { border: 1px solid #353535; background: #0e0e0e; padding: 30px; }
+
+    /* Corner brackets (decorative) */
+    .bracket-frame { position: relative; }
+    .bracket-frame::before, .bracket-frame::after,
+    .bracket-frame > .bl, .bracket-frame > .br {
+      content: ''; position: absolute; width: 18px; height: 18px; pointer-events: none;
+    }
+    .bracket-frame::before { top: -2px; left: -2px; border-top: 2px solid #ffffff; border-left: 2px solid #ffffff; }
+    .bracket-frame::after { top: -2px; right: -2px; border-top: 2px solid #ffffff; border-right: 2px solid #ffffff; }
+    .bracket-frame > .bl { bottom: -2px; left: -2px; border-bottom: 2px solid #ffffff; border-left: 2px solid #ffffff; }
+    .bracket-frame > .br { bottom: -2px; right: -2px; border-bottom: 2px solid #ffffff; border-right: 2px solid #ffffff; }
+
+    /* Code block — dark with vivid accents */
+    .code-block {
+      background: #0e0e0e; border: 2px solid #ffffff; border-radius: 0;
+      font-family: 'Space Grotesk', monospace; font-size: 13px; line-height: 1.6;
+    }
+    .code-block .tok-key { color: #ffb59a; }
+    .code-block .tok-str { color: #ff5c00; }
+    .code-block .tok-pun { color: #c4c7c8; }
+    .code-block .tok-com { color: #666666; font-style: italic; }
+    .code-block .tok-fn  { color: #ffffff; font-weight: 600; }
+
+    /* Material symbols */
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+    /* Section dividers — thin white horizontal */
+    .hairline { border-top: 1px solid #353535; }
+
+    /* Section spacing — use 80px on mobile, 120-156px on desktop */
+    .section { padding-top: 80px; padding-bottom: 80px; }
+    @media (min-width: 768px) { .section { padding-top: 120px; padding-bottom: 120px; } }
+    @media (min-width: 1280px) { .section { padding-top: 156px; padding-bottom: 156px; } }
+
+    /* Comparison table */
+    .compare-table th, .compare-table td {
+      border: 1px solid #353535; padding: 18px 20px; vertical-align: top;
+      font-family: Inter, sans-serif; font-size: 14px; font-weight: 500;
+    }
+    .compare-table th { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; font-size: 12px; color: #ffffff; background: #1b1b1b; }
+    .compare-table td:first-child { background: #0e0e0e; font-weight: 600; }
+
+    /* Mobile menu */
+    .mobile-menu[hidden] { display: none; }
+
+    /* Focus */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #ff5c00; outline-offset: 4px;
+    }
+
+    /* FAQ accordion */
+    details[open] summary .chev { transform: rotate(180deg); }
+    summary { list-style: none; cursor: pointer; }
+    summary::-webkit-details-marker { display: none; }
+  </style>
+
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Wiseble",
+    "url": "https://wiseble.ai",
+    "description": "Wiseble makes existing scraping APIs agent-payable. We add x402 settlement, an MCP manifest, and a wallet→account bridge — without changing the provider's billing, pricing, or brand.",
+    "founder": { "@type": "Person", "name": "Alex Petrov" },
+    "email": "partners@wiseble.ai"
+  }
+  </script>
+
+  <!-- Plausible (env-gated; founder activates after DNS) -->
+  <!-- <script defer data-domain="wiseble.ai" src="https://plausible.io/js/script.js"></script> -->
+</head>
+
+<body>
+
+  <!-- ============================== TOP NAV ============================== -->
+  <nav class="fixed top-0 inset-x-0 z-50 bg-midnight-void border-b border-[#222]">
+    <div class="max-w-wide mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <span class="display" style="font-size:22px;letter-spacing:-0.4px">Wiseble.ai</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8">
+        <a href="/" class="label-sg text-ghost-white border-b-2 border-ghost-white pb-1">Home</a>
+        <a href="providers.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Providers</a>
+        <a href="developers.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Developers</a>
+        <a href="use-cases/" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Use cases</a>
+        <a href="pricing.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">Pricing</a>
+        <a href="about.html" class="label-sg text-muted-ash hover:text-ghost-white transition-colors">About</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="partner.html" class="hidden md:inline-flex btn-nav">Become a partner</a>
+        <button id="burger" type="button" class="md:hidden p-2 text-ghost-white" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="mobile-menu md:hidden border-t border-[#222] bg-midnight-void" hidden>
+      <div class="px-6 py-6 flex flex-col gap-4">
+        <a href="/" class="label-sg text-ghost-white">Home</a>
+        <a href="providers.html" class="label-sg text-muted-ash">Providers</a>
+        <a href="developers.html" class="label-sg text-muted-ash">Developers</a>
+        <a href="use-cases/" class="label-sg text-muted-ash">Use cases</a>
+        <a href="pricing.html" class="label-sg text-muted-ash">Pricing</a>
+        <a href="about.html" class="label-sg text-muted-ash">About</a>
+        <a href="partner.html" class="btn-nav mt-2">Become a partner</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-16">
+
+    <!-- ============================== 1. HERO ============================== -->
+    <section class="section">
+      <div class="max-w-content mx-auto px-6 md:px-10 text-center">
+        <h1 class="display-xl text-ghost-white max-w-5xl mx-auto">
+          Make your scraping API<br/>agent-payable in one day.
+        </h1>
+        <p class="body-lg text-on-surface-variant max-w-3xl mx-auto mt-8">
+          Wiseble adds an agent-payable interface to your existing scraping API. Your tariffs, your billing system, your wallet, your brand — all stay yours. We add a <span class="font-mono text-accent-orange">/.well-known/x402</span> endpoint, an MCP manifest, and a wallet→account bridge. That's it.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
+          <a href="partner.html" class="btn-solid">Become a launch partner</a>
+          <a href="#how-it-works" class="btn-outline">See how it works</a>
+        </div>
+
+        <!-- Trust bar -->
+        <div class="mt-16 max-w-3xl mx-auto pt-8 hairline">
+          <p class="caption text-accent-orange mb-4">Protocol-level transparency</p>
+          <ul class="flex flex-wrap justify-center items-center gap-x-6 gap-y-3 caption text-muted-ash">
+            <li class="text-ghost-white">Built on x402</li>
+            <li aria-hidden="true">·</li>
+            <li class="text-ghost-white">USDC settles to your wallet</li>
+            <li aria-hidden="true">·</li>
+            <li class="text-ghost-white">We never custody funds</li>
+            <li aria-hidden="true">·</li>
+            <li class="text-ghost-white">MCP-native</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 2. PROBLEM ============================== -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// The agent traffic problem</p>
+        <h2 class="display text-ghost-white max-w-4xl">Your customers are no longer just humans.</h2>
+
+        <div class="grid md:grid-cols-2 gap-12 mt-12">
+          <div class="body-lg text-on-surface-variant space-y-6">
+            <p>In Q1 2026, Coinbase's Agentic.market processed <span class="text-ghost-white">$50M in three weeks</span>. Apify shipped x402 for Actors. Bright Data launched an MCP server. Perplexity now grounds answers on real-time scraping APIs.</p>
+            <p class="text-ghost-white">AI agents are the fastest-growing buyer of web data — and they cannot use your API.</p>
+            <p>They have no email to register. No card to attach. No human to click "I agree." Your signup form, your dashboard, your billing portal — all built for humans, all invisible to agents.</p>
+            <p class="text-accent-orange">Every day your API stays human-only is a day a competitor's API is becoming the default for agents.</p>
+          </div>
+
+          <!-- Human vs Agent flow visual -->
+          <div class="bracket-frame p-8 bg-surface-container-lowest"><span class="bl"></span><span class="br"></span>
+            <div class="space-y-6">
+              <div class="border border-[#353535] p-6">
+                <div class="caption text-muted-ash mb-3">Human checkout flow</div>
+                <ol class="space-y-2 helper">
+                  <li class="flex items-center gap-3"><span class="material-symbols-outlined text-base text-muted-ash">check_box_outline_blank</span> Sign up form</li>
+                  <li class="flex items-center gap-3"><span class="material-symbols-outlined text-base text-muted-ash">check_box_outline_blank</span> Email verification</li>
+                  <li class="flex items-center gap-3"><span class="material-symbols-outlined text-base text-muted-ash">check_box_outline_blank</span> Card on file</li>
+                  <li class="flex items-center gap-3"><span class="material-symbols-outlined text-base text-muted-ash">check_box_outline_blank</span> Click "I agree"</li>
+                  <li class="flex items-center gap-3 text-ghost-white"><span class="material-symbols-outlined text-base text-ghost-white">check_box</span> API key issued</li>
+                </ol>
+              </div>
+              <div class="border-2 border-accent-orange p-6">
+                <div class="caption text-accent-orange mb-3">Agent flow (today)</div>
+                <ol class="space-y-2 helper">
+                  <li class="flex items-center gap-3 text-accent-orange"><span class="material-symbols-outlined text-base">close</span> No email</li>
+                  <li class="flex items-center gap-3 text-accent-orange"><span class="material-symbols-outlined text-base">close</span> No card</li>
+                  <li class="flex items-center gap-3 text-accent-orange"><span class="material-symbols-outlined text-base">close</span> No human click</li>
+                  <li class="flex items-center gap-3 text-accent-orange"><span class="material-symbols-outlined text-base">close</span> No access</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 3. SOLUTION (3 cards) ============================== -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// The solution</p>
+        <h2 class="display text-ghost-white max-w-4xl">One package. One line of code.<br/>New revenue channel.</h2>
+
+        <div class="grid md:grid-cols-3 gap-6 mt-16">
+
+          <article class="bracket-frame console-card flex flex-col gap-5"><span class="bl"></span><span class="br"></span>
+            <span class="caption text-muted-ash">For your CTO</span>
+            <h3 class="heading text-ghost-white">Zero changes to your stack.</h3>
+            <p class="helper text-on-surface-variant">Your billing system stays your billing system. Your pricing stays your pricing. Your API code stays your API code. We sit as a thin Express/Fastify middleware that handles agent payment verification before your handler runs.</p>
+            <p class="helper text-ghost-white">Stripe, Chargebee, your homegrown invoicing — all keep working. We don't touch them.</p>
+          </article>
+
+          <article class="bracket-frame console-card flex flex-col gap-5"><span class="bl"></span><span class="br"></span>
+            <span class="caption text-muted-ash">For your CEO</span>
+            <h3 class="heading text-ghost-white">USDC settles direct to your wallet.</h3>
+            <p class="helper text-on-surface-variant">When an agent buys your $99 plan, the $99 in USDC arrives in the wallet address you control. We never touch the money. No PSP fees. No chargebacks. No 30-day hold periods. No revenue share.</p>
+            <p class="helper text-ghost-white">You stay merchant-of-record. We stay invisible.</p>
+          </article>
+
+          <article class="bracket-frame console-card flex flex-col gap-5"><span class="bl"></span><span class="br"></span>
+            <span class="caption text-muted-ash">For your founder</span>
+            <h3 class="heading text-ghost-white">Agents see your service. Not ours.</h3>
+            <p class="helper text-on-surface-variant">Your name on every receipt. Your domain on <span class="font-mono text-accent-orange">.well-known</span> endpoints. Your brand in the agent's tool list. Wiseble is the plumbing — invisible to your customers and to theirs.</p>
+            <p class="helper text-ghost-white">No marketplace cannibalization. No platform lock-in.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 4. HOW IT WORKS ============================== -->
+    <section id="how-it-works" class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// How it works</p>
+        <h2 class="display text-ghost-white max-w-4xl">From signup to first agent transaction in one afternoon.</h2>
+
+        <div class="grid md:grid-cols-2 gap-12 mt-16">
+
+          <!-- Step 1: YAML -->
+          <div class="flex flex-col gap-4">
+            <div class="flex items-baseline gap-4">
+              <span class="display" style="font-size:48px">01</span>
+              <h3 class="heading text-ghost-white">Describe your existing plans</h3>
+            </div>
+            <p class="helper text-on-surface-variant">One YAML file. Your existing pricing. No new SKUs.</p>
+            <figure class="code-block p-6 mt-2">
+              <div class="flex items-center justify-between mb-3 pb-3 border-b border-[#222]">
+                <span class="caption text-muted-ash">wiseble.yaml</span>
+                <button type="button" class="copy-btn flex items-center gap-1 caption text-muted-ash hover:text-ghost-white" data-target="step1-yaml">
+                  <span class="material-symbols-outlined text-sm">content_copy</span>
+                  <span>Copy</span>
+                </button>
+              </div>
+<pre id="step1-yaml" class="overflow-x-auto"><code><span class="tok-key">provider</span><span class="tok-pun">:</span> <span class="tok-str">scraperapi</span>
+<span class="tok-key">wallet</span><span class="tok-pun">:</span> <span class="tok-str">0x742d35Cc...4438f44e</span>
+<span class="tok-key">packages</span><span class="tok-pun">:</span>
+  <span class="tok-pun">-</span> <span class="tok-key">id</span><span class="tok-pun">:</span> <span class="tok-str">freelancer</span>
+    <span class="tok-key">price_usdc</span><span class="tok-pun">:</span> <span class="tok-str">49.00</span>
+    <span class="tok-key">duration_days</span><span class="tok-pun">:</span> <span class="tok-str">30</span>
+    <span class="tok-key">credits</span><span class="tok-pun">:</span> <span class="tok-str">100000</span>
+  <span class="tok-pun">-</span> <span class="tok-key">id</span><span class="tok-pun">:</span> <span class="tok-str">startup</span>
+    <span class="tok-key">price_usdc</span><span class="tok-pun">:</span> <span class="tok-str">99.00</span>
+    <span class="tok-key">duration_days</span><span class="tok-pun">:</span> <span class="tok-str">30</span>
+    <span class="tok-key">credits</span><span class="tok-pun">:</span> <span class="tok-str">250000</span></code></pre>
+            </figure>
+          </div>
+
+          <!-- Step 2: Code -->
+          <div class="flex flex-col gap-4">
+            <div class="flex items-baseline gap-4">
+              <span class="display" style="font-size:48px">02</span>
+              <h3 class="heading text-ghost-white">Add one line of code</h3>
+            </div>
+            <p class="helper text-on-surface-variant">Wrap your existing route. We handle payment verification.</p>
+            <figure class="code-block p-6 mt-2">
+              <div class="flex items-center justify-between mb-3 pb-3 border-b border-[#222]">
+                <span class="caption text-muted-ash">server.ts</span>
+                <button type="button" class="copy-btn flex items-center gap-1 caption text-muted-ash hover:text-ghost-white" data-target="step2-code">
+                  <span class="material-symbols-outlined text-sm">content_copy</span>
+                  <span>Copy</span>
+                </button>
+              </div>
+<pre id="step2-code" class="overflow-x-auto"><code><span class="tok-com">// One line. Your route is now agent-payable.</span>
+<span class="tok-pun">import</span> <span class="tok-pun">{</span> <span class="tok-fn">wiseble</span> <span class="tok-pun">}</span> <span class="tok-pun">from</span> <span class="tok-str">'@wiseble/sdk-node'</span>
+
+<span class="tok-fn">app</span><span class="tok-pun">.</span><span class="tok-fn">post</span><span class="tok-pun">(</span>
+  <span class="tok-str">'/api/scrape'</span><span class="tok-pun">,</span>
+  <span class="tok-fn">wiseble</span><span class="tok-pun">.</span><span class="tok-fn">protect</span><span class="tok-pun">(),</span> <span class="tok-com">// ← that's it</span>
+  <span class="tok-fn">yourExistingHandler</span>
+<span class="tok-pun">)</span></code></pre>
+            </figure>
+          </div>
+
+          <!-- Step 3: Get paid -->
+          <div class="md:col-span-2">
+            <div class="bracket-frame console-card-low"><span class="bl"></span><span class="br"></span>
+              <div class="flex items-baseline gap-4 mb-6">
+                <span class="display" style="font-size:48px">03</span>
+                <h3 class="heading text-ghost-white">Get paid by agents</h3>
+              </div>
+              <p class="body-lg text-on-surface-variant">
+                Agent calls your API → 402 Payment Required → agent's wallet pays in USDC → you get the funds in your wallet → your existing <span class="font-mono text-accent-orange">issueApiKey()</span> runs → agent uses your API like any other customer.
+              </p>
+
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <div class="border border-[#353535] p-5 text-center">
+                  <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">smart_toy</span>
+                  <p class="caption text-muted-ash mt-3">Agent calls API</p>
+                </div>
+                <div class="border border-[#353535] p-5 text-center">
+                  <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">payments</span>
+                  <p class="caption text-muted-ash mt-3">402 + x402</p>
+                </div>
+                <div class="border border-[#353535] p-5 text-center">
+                  <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">currency_exchange</span>
+                  <p class="caption text-muted-ash mt-3">USDC settles</p>
+                </div>
+                <div class="border border-[#353535] p-5 text-center">
+                  <span class="material-symbols-outlined text-ghost-white" style="font-size:32px">key</span>
+                  <p class="caption text-ghost-white mt-3">Key issued</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 5. TECHNICAL BENEFITS (6 cards) ============================== -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Built for engineers</p>
+        <h2 class="display text-ghost-white max-w-4xl">Built for engineers who don't want to learn crypto.</h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+
+          <article class="console-card-soft flex flex-col gap-3">
+            <span class="display text-muted-ash" style="font-size:36px">01</span>
+            <h3 class="subheading text-ghost-white">No crypto knowledge required.</h3>
+            <p class="helper text-on-surface-variant">You don't write smart contracts, manage private keys, or learn x402 spec. Our SDK abstracts all of it. Your code stays in TypeScript or Python.</p>
+          </article>
+
+          <article class="console-card-soft flex flex-col gap-3">
+            <span class="display text-muted-ash" style="font-size:36px">02</span>
+            <h3 class="subheading text-ghost-white">One YAML, three discovery surfaces.</h3>
+            <p class="helper text-on-surface-variant">Define packages once. Wiseble auto-generates <span class="font-mono text-accent-orange">.well-known/x402</span>, an MCP manifest, OpenAPI 3.1 spec, and an agent card.</p>
+          </article>
+
+          <article class="console-card-soft flex flex-col gap-3">
+            <span class="display text-muted-ash" style="font-size:36px">03</span>
+            <h3 class="subheading text-ghost-white">Wallet → account bridge, built in.</h3>
+            <p class="helper text-on-surface-variant">When an agent's wallet pays, Wiseble triggers your existing user-creation flow with a stable virtual identity. Same code path as a human signup.</p>
+          </article>
+
+          <article class="console-card-soft flex flex-col gap-3">
+            <span class="display text-muted-ash" style="font-size:36px">04</span>
+            <h3 class="subheading text-ghost-white">Failure recovery, included.</h3>
+            <p class="helper text-on-surface-variant">If your <span class="font-mono text-accent-orange">issueKey</span> hook fails, we retry with exponential backoff. If all retries fail, we initiate an automated USDC refund to the agent.</p>
+          </article>
+
+          <article class="console-card-soft flex flex-col gap-3">
+            <span class="display text-muted-ash" style="font-size:36px">05</span>
+            <h3 class="subheading text-ghost-white">Idempotency by default.</h3>
+            <p class="helper text-on-surface-variant">Every payment carries an idempotency key. Network glitches, retries, and double-submissions can never charge an agent twice or issue duplicate keys.</p>
+          </article>
+
+          <article class="console-card-soft flex flex-col gap-3">
+            <span class="display text-muted-ash" style="font-size:36px">06</span>
+            <h3 class="subheading text-ghost-white">Verify-before-execute.</h3>
+            <p class="helper text-on-surface-variant">We verify payment before your scraper consumes proxies, captcha credits, or compute. Failed payments cost you nothing.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 6. WHAT YOU KEEP / ADD / TOUCH ============================== -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// The boundary</p>
+        <h2 class="display text-ghost-white max-w-4xl">What you keep. What we add.<br/>What we never touch.</h2>
+
+        <div class="overflow-x-auto mt-16 bracket-frame"><span class="bl"></span><span class="br"></span>
+          <table class="compare-table w-full text-left">
+            <thead>
+              <tr>
+                <th>Layer</th>
+                <th>You keep</th>
+                <th>We add</th>
+                <th>We never touch</th>
+              </tr>
+            </thead>
+            <tbody class="text-on-surface-variant">
+              <tr><td>Billing</td><td>Stripe, Chargebee, custom — your call</td><td>x402 verification before issuing access</td><td>Your invoices</td></tr>
+              <tr><td>Pricing</td><td>Your existing tariffs, unchanged</td><td>A YAML mirror agents can read</td><td>Your pricing decisions</td></tr>
+              <tr><td>Wallet</td><td>Direct USDC settlement to your address</td><td>Auto-generated payment requirements</td><td>Your funds — never custody</td></tr>
+              <tr><td>Brand</td><td>Your name on every interface</td><td>Optional branded MCP endpoint</td><td>Your customer relationship</td></tr>
+              <tr><td>API</td><td>Your existing handlers and code</td><td>A 5KB Express/Fastify middleware</td><td>Your API logic</td></tr>
+              <tr><td>Compliance</td><td>Your KYC, your ToS, your jurisdiction</td><td>Per-transaction audit trail</td><td>Your legal posture</td></tr>
+              <tr><td>Refunds</td><td>Your policy</td><td>Automatic refund webhook on hook failures</td><td>Your dispute resolution</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 7. CODE SAMPLE — full ============================== -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Tech proof</p>
+        <h2 class="display text-ghost-white max-w-4xl">12 lines. One restart. Your API is agent-payable.</h2>
+
+        <div class="grid lg:grid-cols-3 gap-6 mt-16 items-start">
+
+          <div class="lg:col-span-2 code-block p-8">
+            <div class="flex items-center justify-between mb-4 pb-4 border-b border-[#222]">
+              <div class="flex items-center gap-4">
+                <span class="caption text-ghost-white border-b-2 border-accent-orange pb-1">Express</span>
+                <span class="caption text-muted-ash">Fastify</span>
+                <span class="caption text-muted-ash">Hono</span>
+              </div>
+              <button type="button" class="copy-btn flex items-center gap-1 caption text-muted-ash hover:text-ghost-white" data-target="full-code">
+                <span class="material-symbols-outlined text-sm">content_copy</span>
+                <span>Copy</span>
+              </button>
+            </div>
+<pre id="full-code" class="overflow-x-auto"><code><span class="tok-pun">import</span> <span class="tok-fn">express</span> <span class="tok-pun">from</span> <span class="tok-str">'express'</span>
+<span class="tok-pun">import</span> <span class="tok-pun">{</span> <span class="tok-fn">wiseble</span> <span class="tok-pun">}</span> <span class="tok-pun">from</span> <span class="tok-str">'@wiseble/sdk-node'</span>
+
+<span class="tok-pun">const</span> <span class="tok-fn">app</span> <span class="tok-pun">=</span> <span class="tok-fn">express</span><span class="tok-pun">()</span>
+
+<span class="tok-pun">const</span> <span class="tok-fn">protect</span> <span class="tok-pun">=</span> <span class="tok-fn">wiseble</span><span class="tok-pun">.</span><span class="tok-fn">init</span><span class="tok-pun">({</span>
+  <span class="tok-key">providerSlug</span><span class="tok-pun">:</span> <span class="tok-str">'scraperapi'</span><span class="tok-pun">,</span>
+  <span class="tok-key">apiKey</span><span class="tok-pun">:</span> <span class="tok-fn">process</span><span class="tok-pun">.</span><span class="tok-key">env</span><span class="tok-pun">.</span><span class="tok-key">WISEBLE_KEY</span><span class="tok-pun">,</span>
+  <span class="tok-key">hookSecret</span><span class="tok-pun">:</span> <span class="tok-fn">process</span><span class="tok-pun">.</span><span class="tok-key">env</span><span class="tok-pun">.</span><span class="tok-key">WISEBLE_HOOK_SECRET</span><span class="tok-pun">,</span>
+<span class="tok-pun">})</span>
+
+<span class="tok-fn">app</span><span class="tok-pun">.</span><span class="tok-fn">post</span><span class="tok-pun">(</span><span class="tok-str">'/api/scrape'</span><span class="tok-pun">,</span> <span class="tok-fn">protect</span><span class="tok-pun">(),</span> <span class="tok-pun">async</span> <span class="tok-pun">(</span><span class="tok-fn">req</span><span class="tok-pun">,</span> <span class="tok-fn">res</span><span class="tok-pun">)</span> <span class="tok-pun">=&gt;</span> <span class="tok-pun">{</span>
+  <span class="tok-com">// req.context.apiKey is your existing key, scoped to the agent's wallet</span>
+  <span class="tok-pun">const</span> <span class="tok-fn">result</span> <span class="tok-pun">=</span> <span class="tok-pun">await</span> <span class="tok-fn">yourExistingScrapeHandler</span><span class="tok-pun">(</span><span class="tok-fn">req</span><span class="tok-pun">.</span><span class="tok-key">body</span><span class="tok-pun">,</span> <span class="tok-fn">req</span><span class="tok-pun">.</span><span class="tok-key">context</span><span class="tok-pun">.</span><span class="tok-key">apiKey</span><span class="tok-pun">)</span>
+  <span class="tok-fn">res</span><span class="tok-pun">.</span><span class="tok-fn">json</span><span class="tok-pun">(</span><span class="tok-fn">result</span><span class="tok-pun">)</span>
+<span class="tok-pun">})</span></code></pre>
+          </div>
+
+          <aside class="bracket-frame console-card-low flex flex-col gap-4"><span class="bl"></span><span class="br"></span>
+            <span class="caption text-accent-orange">Provider hook</span>
+            <h3 class="subheading text-ghost-white">One HTTP endpoint.</h3>
+            <p class="helper text-on-surface-variant">
+              <span class="font-mono text-accent-orange">/wiseble/issue</span> calls your existing <span class="font-mono">createUser</span> and <span class="font-mono">issueApiKey</span> logic. Same code path you already run for human signups.
+            </p>
+            <a href="developers.html" class="caption text-ghost-white hover:text-accent-orange inline-flex items-center gap-1 mt-4">
+              See provider-hook spec
+              <span class="material-symbols-outlined text-sm">arrow_outward</span>
+            </a>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 8. USE CASES (short) ============================== -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Demand side</p>
+        <h2 class="display text-ghost-white max-w-4xl">Agents already buy what you sell.</h2>
+
+        <p class="body-lg text-on-surface-variant max-w-3xl mt-8">
+          Research agents need real-time SERP data. Shopping agents need product feeds. Lead-gen agents need company enrichment. Trading agents need news and on-chain data. Recruiting agents need job boards. Real estate, travel, brand monitoring, OSINT, knowledge graphs — every category of agent needs web data, and your API can be the source.
+        </p>
+
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mt-12">
+          <a href="use-cases/research-agents.html" class="border border-[#353535] hover:border-ghost-white p-4 helper transition-colors">Research</a>
+          <a href="use-cases/shopping-agents.html" class="border border-[#353535] hover:border-ghost-white p-4 helper transition-colors">Shopping</a>
+          <a href="use-cases/lead-gen-agents.html" class="border border-[#353535] hover:border-ghost-white p-4 helper transition-colors">Lead-gen</a>
+          <a href="use-cases/trading-agents.html" class="border border-[#353535] hover:border-ghost-white p-4 helper transition-colors">Trading</a>
+          <a href="use-cases/recruiting-agents.html" class="border border-[#353535] hover:border-ghost-white p-4 helper transition-colors">Recruiting</a>
+          <a href="use-cases/real-estate-agents.html" class="border border-[#353535] hover:border-ghost-white p-4 helper transition-colors">Real estate</a>
+          <a href="use-cases/travel-agents.html" class="border border-[#353535] hover:border-ghost-white p-4 helper transition-colors">Travel</a>
+          <a href="use-cases/brand-monitoring-agents.html" class="border border-[#353535] hover:border-ghost-white p-4 helper transition-colors">Brand monitor</a>
+          <a href="use-cases/osint-agents.html" class="border border-[#353535] hover:border-ghost-white p-4 helper transition-colors">OSINT</a>
+          <a href="use-cases/knowledge-graph-agents.html" class="border border-[#353535] hover:border-ghost-white p-4 helper transition-colors">Knowledge graph</a>
+        </div>
+
+        <a href="use-cases/" class="caption text-ghost-white hover:text-accent-orange inline-flex items-center gap-2 mt-8">
+          See 10 agent use cases
+          <span class="material-symbols-outlined text-sm">arrow_outward</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================== 9. PRICING TEASER ============================== -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Pricing</p>
+        <h2 class="display text-ghost-white max-w-4xl">Predictable SaaS pricing. Forever.</h2>
+
+        <p class="body-lg text-on-surface-variant max-w-3xl mt-8">
+          $299 to $1,999 per month. Flat fee. <span class="text-ghost-white">No transaction percentage. No revenue share in v1. No surprise compliance costs.</span>
+        </p>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-12 bracket-frame"><span class="bl"></span><span class="br"></span>
+          <div class="border border-[#353535] p-6">
+            <span class="caption text-muted-ash">Level 01 — Starter</span>
+            <div class="display mt-3" style="font-size:36px">$299<span class="caption text-muted-ash ml-1">/MO</span></div>
+          </div>
+          <div class="border-2 border-ghost-white p-6 bg-surface-container">
+            <span class="caption text-accent-orange">Recommended — Growth</span>
+            <div class="display mt-3" style="font-size:36px">$799<span class="caption text-muted-ash ml-1">/MO</span></div>
+          </div>
+          <div class="border border-[#353535] p-6">
+            <span class="caption text-muted-ash">Level 03 — Scale</span>
+            <div class="display mt-3" style="font-size:36px">$1,999<span class="caption text-muted-ash ml-1">/MO</span></div>
+          </div>
+          <div class="border border-[#353535] p-6">
+            <span class="caption text-muted-ash">Custom — Enterprise</span>
+            <div class="display mt-3" style="font-size:36px">POA<span class="caption text-muted-ash ml-1">/YEAR</span></div>
+          </div>
+        </div>
+
+        <a href="pricing.html" class="btn-outline mt-12">See full pricing</a>
+      </div>
+    </section>
+
+    <!-- ============================== 10. FAQ ============================== -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Objection handling</p>
+        <h2 class="display text-ghost-white max-w-4xl">The questions every CTO asks before signing up.</h2>
+
+        <div class="max-w-3xl mt-16 space-y-3">
+
+          <details class="group border-2 border-[#353535] hover:border-ghost-white p-6 bg-surface-container-lowest transition-colors">
+            <summary class="flex justify-between items-start gap-4">
+              <span class="body-lg text-ghost-white">Are you a payment processor? Do I need to register you under PSD2 / FinCEN / VARA?</span>
+              <span class="material-symbols-outlined chev transition-transform text-muted-ash">expand_more</span>
+            </summary>
+            <p class="helper text-on-surface-variant mt-4 pt-4 border-t border-[#222]">
+              No. We never custody funds. USDC moves on-chain directly from the agent's wallet to yours through the Coinbase facilitator. We are a software vendor, not a money services business. We have a written legal opinion confirming this — available under NDA.
+            </p>
+          </details>
+
+          <details class="group border-2 border-[#353535] hover:border-ghost-white p-6 bg-surface-container-lowest transition-colors">
+            <summary class="flex justify-between items-start gap-4">
+              <span class="body-lg text-ghost-white">What if x402 doesn't become the standard?</span>
+              <span class="material-symbols-outlined chev transition-transform text-muted-ash">expand_more</span>
+            </summary>
+            <p class="helper text-on-surface-variant mt-4 pt-4 border-t border-[#222]">
+              Our SDK abstracts the payment protocol. We're built x402-first because it has Coinbase, Cloudflare, Stripe, and the Linux Foundation behind it — but if Stripe MPP or Google AP2 takes over, we ship a new adapter and your integration doesn't change.
+            </p>
+          </details>
+
+          <details class="group border-2 border-[#353535] hover:border-ghost-white p-6 bg-surface-container-lowest transition-colors">
+            <summary class="flex justify-between items-start gap-4">
+              <span class="body-lg text-ghost-white">Will agents abuse our API more than humans?</span>
+              <span class="material-symbols-outlined chev transition-transform text-muted-ash">expand_more</span>
+            </summary>
+            <p class="helper text-on-surface-variant mt-4 pt-4 border-t border-[#222]">
+              We give you per-wallet rate limiting and audit trail per transaction. You can apply your existing fraud rules to agent wallets identically to human users. If anything, agents are easier to monitor than humans — every action has a signed transaction attached.
+            </p>
+          </details>
+
+          <details class="group border-2 border-[#353535] hover:border-ghost-white p-6 bg-surface-container-lowest transition-colors">
+            <summary class="flex justify-between items-start gap-4">
+              <span class="body-lg text-ghost-white">What if my agents need refunds?</span>
+              <span class="material-symbols-outlined chev transition-transform text-muted-ash">expand_more</span>
+            </summary>
+            <p class="helper text-on-surface-variant mt-4 pt-4 border-t border-[#222]">
+              For failures inside your provider hook, we auto-refund. For business-logic refunds (e.g. low-quality data), you control the policy via webhook — same as you do for human customers today.
+            </p>
+          </details>
+
+          <details class="group border-2 border-[#353535] hover:border-ghost-white p-6 bg-surface-container-lowest transition-colors">
+            <summary class="flex justify-between items-start gap-4">
+              <span class="body-lg text-ghost-white">How long does the integration actually take?</span>
+              <span class="material-symbols-outlined chev transition-transform text-muted-ash">expand_more</span>
+            </summary>
+            <p class="helper text-on-surface-variant mt-4 pt-4 border-t border-[#222]">
+              Our average launch partner ships to staging in under one day, to production in under one week. The bottleneck is usually internal QA, not our SDK.
+            </p>
+          </details>
+
+          <details class="group border-2 border-[#353535] hover:border-ghost-white p-6 bg-surface-container-lowest transition-colors">
+            <summary class="flex justify-between items-start gap-4">
+              <span class="body-lg text-ghost-white">Can I run a pilot before signing a paid contract?</span>
+              <span class="material-symbols-outlined chev transition-transform text-muted-ash">expand_more</span>
+            </summary>
+            <p class="helper text-on-surface-variant mt-4 pt-4 border-t border-[#222]">
+              Yes. Our first 5–10 launch partners get 90 days free in exchange for a public case study. Apply via the form below.
+            </p>
+          </details>
+
+          <details class="group border-2 border-[#353535] hover:border-ghost-white p-6 bg-surface-container-lowest transition-colors">
+            <summary class="flex justify-between items-start gap-4">
+              <span class="body-lg text-ghost-white">What happens if I want to leave Wiseble?</span>
+              <span class="material-symbols-outlined chev transition-transform text-muted-ash">expand_more</span>
+            </summary>
+            <p class="helper text-on-surface-variant mt-4 pt-4 border-t border-[#222]">
+              Your customers are yours, your code is yours, your wallet is yours. Removing the middleware is a one-line revert. We don't lock you in technically, contractually, or commercially.
+            </p>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 11. FINAL CTA ============================== -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <div class="border-2 border-accent-orange p-12 md:p-20 bg-surface-container-lowest text-center relative overflow-hidden">
+          <div class="absolute -top-24 -right-24 w-64 h-64 bg-accent-orange/10 blur-3xl rounded-full"></div>
+          <p class="caption text-accent-orange mb-6">// Launch partner program</p>
+          <h2 class="display text-ghost-white max-w-3xl mx-auto">Add the agent revenue channel this quarter.</h2>
+          <p class="body-lg text-on-surface-variant max-w-2xl mx-auto mt-8">
+            10 launch-partner slots. 90 days free. Direct line to the founder.
+          </p>
+          <div class="flex flex-col items-center gap-4 mt-10">
+            <a href="partner.html" class="btn-solid">Apply to be a launch partner</a>
+            <span class="caption text-muted-ash">Early access window closes Q3 2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================== FOOTER ============================== -->
+  <footer class="border-t-2 border-ghost-white bg-midnight-void">
+    <div class="max-w-wide mx-auto px-6 md:px-10 py-16 grid grid-cols-2 md:grid-cols-4 gap-12">
+      <div class="col-span-2 flex flex-col gap-4">
+        <span class="display" style="font-size:24px;letter-spacing:-0.4px">Wiseble.ai</span>
+        <p class="helper max-w-md">Agent-payable interface for existing data APIs. Your tariffs, your wallet, your brand — invisible plumbing for the agentic web.</p>
+        <p class="caption text-muted-ash mt-4">© 2026 Wiseble · Technical protocol established · Built in Spain</p>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <span class="caption text-muted-ash">Product</span>
+        <a href="providers.html" class="caption text-ghost-white hover:text-accent-orange">For providers</a>
+        <a href="developers.html" class="caption text-ghost-white hover:text-accent-orange">For developers</a>
+        <a href="use-cases/" class="caption text-ghost-white hover:text-accent-orange">Use cases</a>
+        <a href="pricing.html" class="caption text-ghost-white hover:text-accent-orange">Pricing</a>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <span class="caption text-muted-ash">Company</span>
+        <a href="about.html" class="caption text-ghost-white hover:text-accent-orange">About</a>
+        <a href="partner.html" class="caption text-ghost-white hover:text-accent-orange">Become a partner</a>
+        <a href="mailto:hello@wiseble.ai" class="caption text-ghost-white hover:text-accent-orange">hello@wiseble.ai</a>
+        <a href="#" class="caption text-muted-ash hover:text-accent-orange">Privacy</a>
+        <a href="#" class="caption text-muted-ash hover:text-accent-orange">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
