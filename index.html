@@ -87,7 +87,7 @@
     </div>
   </nav>
 
-  <main class="pt-16">
+  <main class="pt-16 human-only">
 
     <!-- ============================== 1. HERO ============================== -->
     <section class="section">
@@ -592,7 +592,7 @@
   </main>
 
   <!-- ============================== FOOTER ============================== -->
-  <footer class="border-t-2 border-ghost-white bg-midnight-void">
+  <footer class="human-only border-t-2 border-ghost-white bg-midnight-void">
     <div class="max-w-wide mx-auto px-6 md:px-10 py-16 grid grid-cols-2 md:grid-cols-4 gap-12">
       <div class="col-span-2 flex flex-col gap-4">
         <span class="display" style="font-size:24px;letter-spacing:-0.4px">Wiseble.ai</span>
@@ -618,6 +618,99 @@
       </div>
     </div>
   </footer>
+
+  <!-- Human / Machine mode switcher (parallel.ai-style floating pill) -->
+  <div class="mode-switcher" role="tablist" aria-label="Display mode">
+    <button data-switch-mode="human" type="button" role="tab" aria-label="Human view">
+      <span class="dot" aria-hidden="true"></span>
+      <span>Human</span>
+    </button>
+    <button data-switch-mode="machine" type="button" role="tab" aria-label="Machine view">
+      <span class="dot" aria-hidden="true"></span>
+      <span>Machine</span>
+    </button>
+  </div>
+
+  <!-- Machine-readable manifest (shown only in machine mode) -->
+  <main class="machine-only machine-md max-w-content mx-auto px-6 md:px-10 py-12">
+    <span class="md-h1"># wiseble.ai</span>
+    <p>Agent-payable interface for existing data APIs. Add x402 + USDC settlement to your scraping/data API in one line of code.</p>
+
+    <span class="md-h2">## Identity</span>
+<pre>{
+  "name": "Wiseble",
+  "category": "agent-payment-gateway",
+  "version": "1.0",
+  "summary": "Make existing scraping APIs agent-payable without changing billing.",
+  "founded": "2026",
+  "homepage": "https://wiseble.ai",
+  "contact": "hello@wiseble.ai"
+}</pre>
+
+    <span class="md-h2">## What we do</span>
+    <p>- Open existing data APIs to AI agent traffic via x402 + MCP.</p>
+    <p>- Settlement in USDC directly to provider's wallet on Base.</p>
+    <p>- Zero custody. Zero billing replacement. Zero brand interference.</p>
+
+    <span class="md-h2">## How it works</span>
+<pre>1. Provider defines plans in YAML  →  wiseble.yaml
+2. Provider drops in middleware    →  wiseble.protect()
+3. Agent calls API                  →  402 + USDC payment
+4. Provider's issueApiKey() runs   →  agent gets real key
+5. Agent uses API normally          →  provider's billing untouched</pre>
+
+    <span class="md-h2">## Capabilities</span>
+<pre>- agent-discovery        : MCP catalog + .well-known/x402 + agent card
+- payment-verification   : x402 on Base with idempotency
+- wallet-account-bridge  : maps wallet → provider's user model
+- analytics              : per-wallet retention, plans, churn
+- automated-refunds      : on hook failure, USDC returns to wallet</pre>
+
+    <span class="md-h2">## Boundary</span>
+<pre>WE NEVER:
+  custody funds          | replace billing       | rewrite pricing
+  put our brand in front | sell to customers     | take percentage
+WE ALWAYS:
+  fixed monthly SaaS     | direct USDC settlement | provider as MoR
+  one-line integration   | per-tx audit trail     | invisible plumbing</pre>
+
+    <span class="md-h2">## Provider integration (Express, TypeScript)</span>
+<pre>import { wiseble } from '@wiseble/sdk-node'
+const protect = wiseble.init({ providerSlug: 'scraperapi', apiKey: process.env.WISEBLE_KEY })
+app.post('/api/scrape', protect(), yourExistingHandler)
+// One line. Restart. Agent-payable.</pre>
+
+    <span class="md-h2">## Demand-side categories</span>
+<pre>research-agents | shopping-agents | lead-gen-agents
+trading-agents | recruiting-agents | real-estate-agents
+travel-agents | brand-monitoring-agents | osint-agents
+knowledge-graph-agents</pre>
+
+    <span class="md-h2">## Pricing</span>
+<pre>Starter    $299/mo   | up to 3 packages
+Growth     $799/mo   | unlimited + branded MCP    [Recommended]
+Scale      $1,999/mo | + 99.9% SLA + advanced analytics
+Enterprise POA       | on-prem, white-label, dedicated CSM
+
+ZERO transaction fees. ZERO revenue share. ZERO gas costs.</pre>
+
+    <span class="md-h2">## Why now</span>
+<pre>Q1 2026: Coinbase Agentic.market processed $50M in 3 weeks
+2026:    Estimated $8.2B AI-driven scraping spend
+Q3 2026: Threshold for being agent-payable or invisible</pre>
+
+    <span class="md-h2">## Endpoints</span>
+<pre>provider-side hook  : POST  https://your-api.com/wiseble/issue
+catalog manifest    : GET   https://wiseble.ai/.well-known/x402
+mcp                 : npx   @wiseble/mcp-client</pre>
+
+    <span class="md-h2">## Links</span>
+    <p><span class="md-link">[Apply as a launch partner](https://wiseble.ai/partner)</span></p>
+    <p><span class="md-link">[For providers — deep dive](https://wiseble.ai/providers)</span></p>
+    <p><span class="md-link">[For developers — quickstart](https://wiseble.ai/developers)</span></p>
+    <p><span class="md-link">[Pricing](https://wiseble.ai/pricing)</span></p>
+    <p><span class="md-link">[10 use cases](https://wiseble.ai/use-cases)</span></p>
+  </main>
 
   <script src="assets/app.js"></script>
 </body>

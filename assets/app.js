@@ -1,8 +1,31 @@
 // Wiseble — minimal vanilla JS
-// 1) Mobile menu toggle
-// 2) Code-block copy buttons (with optional Plausible event)
+// 1) Human / Machine mode toggle (persisted in localStorage)
+// 2) Mobile menu toggle
+// 3) Code-block copy buttons (with optional Plausible event)
 
 (() => {
+  // Mode toggle (parallel.ai-style)
+  const STORAGE_KEY = 'wiseble-mode';
+  const initialMode = localStorage.getItem(STORAGE_KEY) || 'human';
+  document.body.dataset.mode = initialMode;
+
+  const updateActive = (mode) => {
+    document.querySelectorAll('[data-switch-mode]').forEach((b) => {
+      b.classList.toggle('active', b.dataset.switchMode === mode);
+    });
+  };
+  updateActive(initialMode);
+
+  document.querySelectorAll('[data-switch-mode]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.switchMode;
+      document.body.dataset.mode = mode;
+      localStorage.setItem(STORAGE_KEY, mode);
+      updateActive(mode);
+      if (window.plausible) window.plausible('mode_switch', { props: { mode } });
+    });
+  });
+
   const burger = document.getElementById('burger');
   const menu = document.getElementById('mobile-menu');
   if (burger && menu) {

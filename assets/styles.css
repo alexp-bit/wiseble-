@@ -121,3 +121,88 @@ a:focus-visible, button:focus-visible {
 details[open] summary .chev { transform: rotate(180deg); }
 summary { list-style: none; cursor: pointer; }
 summary::-webkit-details-marker { display: none; }
+
+/* ============================== Human / Machine mode toggle (parallel.ai style) ============================== */
+/* Floating pill at bottom center */
+.mode-switcher {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  gap: 16px;
+  padding: 6px 8px;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  user-select: none;
+}
+.mode-switcher button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Space Grotesk', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color .15s ease;
+}
+.mode-switcher button.active { color: #ffffff; }
+.mode-switcher button:not(.active):hover { color: rgba(255, 255, 255, 0.8); }
+.mode-switcher .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+  margin-bottom: 1px;
+}
+.mode-switcher button.active .dot { background: currentColor; }
+
+/* View switching */
+[data-mode="machine"] .human-only { display: none !important; }
+[data-mode="human"] .machine-only { display: none !important; }
+
+/* Machine-mode treatment: strip decorative chrome */
+[data-mode="machine"] body { background: #000000; }
+[data-mode="machine"] .console-card,
+[data-mode="machine"] .console-card-low,
+[data-mode="machine"] .console-card-soft {
+  background: transparent;
+  border: 1px solid #333;
+  padding: 16px;
+}
+[data-mode="machine"] .bracket-frame::before,
+[data-mode="machine"] .bracket-frame::after,
+[data-mode="machine"] .bracket-frame > .bl,
+[data-mode="machine"] .bracket-frame > .br { display: none; }
+[data-mode="machine"] .section { padding-top: 32px; padding-bottom: 32px; }
+[data-mode="machine"] nav { display: none; }
+[data-mode="machine"] main { padding-top: 0 !important; }
+[data-mode="machine"] .display-xl,
+[data-mode="machine"] .display { font-size: 24px; line-height: 1.3; letter-spacing: 0; }
+[data-mode="machine"] .heading { font-size: 18px; }
+[data-mode="machine"] .subheading { font-size: 16px; }
+[data-mode="machine"] .machine-md {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #c4c7c8;
+}
+[data-mode="machine"] .machine-md .md-h1 { color: #ffffff; font-weight: 600; display: block; margin-top: 24px; }
+[data-mode="machine"] .machine-md .md-h2 { color: #ffffff; font-weight: 600; display: block; margin-top: 20px; }
+[data-mode="machine"] .machine-md .md-link { color: #ff5c00; }
+[data-mode="machine"] .machine-md .md-code { color: #ffb59a; }
+[data-mode="machine"] .machine-md pre {
+  background: #0e0e0e; border: 1px solid #333; padding: 16px;
+  overflow-x: auto; white-space: pre-wrap; margin: 12px 0;
+}
