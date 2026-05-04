@@ -168,9 +168,10 @@ summary::-webkit-details-marker { display: none; }
 }
 .mode-switcher button.active .dot { background: currentColor; }
 
-/* View switching */
+/* View switching — agent-only hidden by default, shown only when data-mode="agent" */
+.agent-only { display: none; }
+[data-mode="agent"] .agent-only { display: block; }
 [data-mode="agent"] .human-only { display: none !important; }
-[data-mode="human"] .agent-only { display: none !important; }
 
 /* Agent-mode treatment: strip decorative chrome */
 [data-mode="agent"] body { background: #000000; }
