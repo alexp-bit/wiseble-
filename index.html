@@ -90,8 +90,12 @@
   <main class="pt-16 human-only">
 
     <!-- ============================== 1. HERO ============================== -->
-    <section class="section">
-      <div class="max-w-content mx-auto px-6 md:px-10 text-center">
+    <section class="section hero">
+      <canvas class="hero-canvas glyph-canvas" aria-hidden="true"></canvas>
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-vignette" aria-hidden="true"></div>
+
+      <div class="hero-inner max-w-content mx-auto px-6 md:px-10 text-center">
         <h1 class="display-xl text-ghost-white max-w-5xl mx-auto">
           Your <span class="text-accent-orange">Data</span> API —<br/>Open to AI agents <span class="text-accent-orange">revenue</span> stream
         </h1>
@@ -713,5 +717,6 @@ mcp                 : npx   @wiseble/mcp-client</pre>
   </main>
 
   <script src="assets/app.js"></script>
+  <script src="assets/hero-rain.js"></script>
 </body>
 </html>
