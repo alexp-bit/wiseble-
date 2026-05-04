@@ -62,6 +62,7 @@
 
   <main class="pt-16">
 
+    <!-- HERO -->
     <section class="section">
       <div class="max-w-content mx-auto px-6 md:px-10">
         <div class="flex items-center gap-3 mb-6">
@@ -74,6 +75,7 @@
       </div>
     </section>
 
+    <!-- PROBLEM / SOLUTION -->
     <section class="section pt-0 md:pt-0 lg:pt-0 border-t border-[#222]">
       <div class="max-w-content mx-auto px-6 md:px-10 mt-16">
         <div class="grid md:grid-cols-2 gap-6">
@@ -94,6 +96,95 @@
       </div>
     </section>
 
+    <!-- EXAMPLE FLOW -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Example flow</p>
+        <h2 class="display text-ghost-white max-w-4xl">From agent intent to fresh data.</h2>
+
+        <div class="bracket-frame console-card-low mt-16"><span class="bl"></span><span class="br"></span>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="border border-[#353535] p-5 text-center">
+              <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">smart_toy</span>
+              <p class="caption text-ghost-white mt-3">01 · Agent intent</p>
+              <p class="helper text-on-surface-variant mt-2">Agent picks the tool from MCP catalog.</p>
+            </div>
+            <div class="border border-[#353535] p-5 text-center">
+              <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">payments</span>
+              <p class="caption text-ghost-white mt-3">02 · 402 + USDC</p>
+              <p class="helper text-on-surface-variant mt-2">Provider returns price; agent's wallet pays on Base.</p>
+            </div>
+            <div class="border border-[#353535] p-5 text-center">
+              <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">key</span>
+              <p class="caption text-ghost-white mt-3">03 · Key issued</p>
+              <p class="helper text-on-surface-variant mt-2">Provider's <span class="font-mono">issueApiKey()</span> runs through Wiseble.</p>
+            </div>
+            <div class="border border-[#353535] p-5 text-center">
+              <span class="material-symbols-outlined text-ghost-white" style="font-size:32px">cloud_done</span>
+              <p class="caption text-ghost-white mt-3">04 · Data flows</p>
+              <p class="helper text-on-surface-variant mt-2">Agent calls the API like any other customer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAMPLE QUERY -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Sample agent invocation</p>
+        <h2 class="display text-ghost-white max-w-4xl">What the agent actually calls.</h2>
+
+        <div class="grid lg:grid-cols-3 gap-6 mt-16 items-start">
+
+          <div class="lg:col-span-2 code-block p-6">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#222]">
+              <span class="caption text-ghost-white">tool.invoke · JSON-RPC</span>
+              <button type="button" class="copy-btn flex items-center gap-1 caption text-muted-ash hover:text-ghost-white" data-target="sample-brand-monitoring-agents">
+                <span class="material-symbols-outlined text-sm">content_copy</span><span>Copy</span>
+              </button>
+            </div>
+<pre id="sample-brand-monitoring-agents" class="overflow-x-auto"><code><span class="tok-pun">{</span>
+  <span class=<span class="tok-str">"tok-key"</span>><span class="tok-str">"tool"</span></span><span class="tok-pun">:</span> <span class="tok-str">"mentions.feed"</span><span class="tok-pun">,</span>
+  <span class=<span class="tok-str">"tok-key"</span>><span class="tok-str">"params"</span></span><span class="tok-pun">:</span> <span class="tok-pun">{</span>
+    <span class=<span class="tok-str">"tok-key"</span>><span class="tok-str">"brand"</span></span><span class="tok-pun">:</span> <span class="tok-str">"Wiseble"</span><span class="tok-pun">,</span>
+    <span class=<span class="tok-str">"tok-key"</span>><span class="tok-str">"channels"</span></span><span class="tok-pun">:</span> <span class="tok-pun">[</span><span class="tok-str">"twitter"</span><span class="tok-pun">,</span><span class="tok-str">"reddit"</span><span class="tok-pun">,</span><span class="tok-str">"g2"</span><span class="tok-pun">,</span><span class="tok-str">"news"</span><span class="tok-pun">]</span><span class="tok-pun">,</span>
+    <span class=<span class="tok-str">"tok-key"</span>><span class="tok-str">"since_minutes"</span></span><span class="tok-pun">:</span> 5<span class="tok-pun">,</span>
+    <span class=<span class="tok-str">"tok-key"</span>><span class="tok-str">"sentiment"</span></span><span class="tok-pun">:</span> true
+  <span class="tok-pun">}</span><span class="tok-pun">,</span>
+  <span class=<span class="tok-str">"tok-key"</span>><span class="tok-str">"max_cost_usdc"</span></span><span class="tok-pun">:</span> <span class="tok-str">"0.05"</span>
+<span class="tok-pun">}</span></code></pre>
+          </div>
+
+          <aside class="bracket-frame console-card-low"><span class="bl"></span><span class="br"></span>
+            <span class="caption text-accent-orange">// Pricing example</span>
+            <h3 class="subheading text-ghost-white mt-3">Cost per workload.</h3>
+            <ul class="mt-6 space-y-3">
+              <li class="flex items-start justify-between gap-3">
+                <span class="helper text-on-surface-variant">Per channel poll</span>
+                <span class="caption text-ghost-white text-right">$0.002 USDC</span>
+              </li>
+              <li class="flex items-start justify-between gap-3">
+                <span class="helper text-on-surface-variant">Daily / 4 channels</span>
+                <span class="caption text-ghost-white text-right">≈ $1 USDC</span>
+              </li>
+              <li class="flex items-start justify-between gap-3">
+                <span class="helper text-on-surface-variant">Spike auto-scale</span>
+                <span class="caption text-ghost-white text-right">Tops up to $10 max</span>
+              </li>
+              <li class="flex items-start justify-between gap-3">
+                <span class="helper text-on-surface-variant">Sentiment NLP</span>
+                <span class="caption text-ghost-white text-right">Free at the provider</span>
+              </li>
+            </ul>
+            <p class="helper text-on-surface-variant mt-6 pt-6 border-t border-[#222]">All prices are illustrative and set by the provider, not by Wiseble.</p>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROVIDERS -->
     <section class="section border-t border-[#222]">
       <div class="max-w-content mx-auto px-6 md:px-10">
         <p class="caption text-accent-orange mb-6">// Recommended provider categories</p>
@@ -118,6 +209,33 @@
       </div>
     </section>
 
+    <!-- RELATED USE CASES -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Related categories</p>
+        <h2 class="display text-ghost-white max-w-4xl">Agents that look similar.</h2>
+
+        <div class="grid md:grid-cols-3 gap-6 mt-16">
+          <a href="research-agents.html" class="bracket-frame console-card-low hover:border-accent-orange transition-colors flex flex-col gap-3"><span class="bl"></span><span class="br"></span>
+            <span class="caption text-muted-ash">→ Research</span>
+            <h3 class="subheading text-ghost-white">Research agents.</h3>
+            <span class="caption text-accent-orange inline-flex items-center gap-1 mt-2">Read more <span class="material-symbols-outlined text-sm">arrow_outward</span></span>
+          </a>
+          <a href="trading-agents.html" class="bracket-frame console-card-low hover:border-accent-orange transition-colors flex flex-col gap-3"><span class="bl"></span><span class="br"></span>
+            <span class="caption text-muted-ash">→ Trading</span>
+            <h3 class="subheading text-ghost-white">Trading agents.</h3>
+            <span class="caption text-accent-orange inline-flex items-center gap-1 mt-2">Read more <span class="material-symbols-outlined text-sm">arrow_outward</span></span>
+          </a>
+          <a href="osint-agents.html" class="bracket-frame console-card-low hover:border-accent-orange transition-colors flex flex-col gap-3"><span class="bl"></span><span class="br"></span>
+            <span class="caption text-muted-ash">→ OSINT</span>
+            <h3 class="subheading text-ghost-white">OSINT agents.</h3>
+            <span class="caption text-accent-orange inline-flex items-center gap-1 mt-2">Read more <span class="material-symbols-outlined text-sm">arrow_outward</span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
     <section class="section border-t border-[#222]">
       <div class="max-w-content mx-auto px-6 md:px-10">
         <div class="border-2 border-accent-orange p-12 md:p-20 bg-surface-container-lowest text-center relative overflow-hidden">
@@ -127,7 +245,7 @@
             One YAML, one middleware, one restart. Agents in this category find you the moment they need you.
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-            <a href="../partner.html" class="btn-solid">Become a launch partner</a>
+            <a href="../partner.html" class="btn-solid">Launch Wiseble</a>
             <a href="../pricing.html" class="btn-outline">See pricing</a>
           </div>
         </div>

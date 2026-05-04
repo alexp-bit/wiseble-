@@ -7,9 +7,24 @@ Outputs to wiseble-site/use-cases/<slug>.html.
 """
 from __future__ import annotations
 from pathlib import Path
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "use-cases"
+
+# Map of slug -> short label (used for related-cases cards)
+LABELS = {
+    "research-agents": "Research",
+    "shopping-agents": "Shopping",
+    "lead-gen-agents": "Lead-gen",
+    "trading-agents": "Trading",
+    "recruiting-agents": "Recruiting",
+    "real-estate-agents": "Real estate",
+    "travel-agents": "Travel",
+    "brand-monitoring-agents": "Brand monitoring",
+    "osint-agents": "OSINT",
+    "knowledge-graph-agents": "Knowledge graph",
+}
 
 CASES = [
     {
@@ -21,6 +36,17 @@ CASES = [
         "problem": "Research agents need fresh, real-time web data to ground their answers. Static training data is months behind. Hardcoded API keys to scraping providers don't scale across thousands of agent instances or rotate cleanly when keys expire.",
         "solution": "A research agent calls <span class='font-mono text-accent-orange'>serp.search</span> or <span class='font-mono text-accent-orange'>news.fetch</span> from any agent-payable provider in the catalog. Each query costs $0.005–$0.05 in USDC, paid from the agent's budget. No human-managed account, no API key rotation, no quota negotiation.",
         "providers": ["SERP APIs", "News aggregators", "Academic paper databases", "Public records APIs"],
+        "sample_query": '''{
+  "tool": "serp.search",
+  "params": {
+    "query": "x402 vs stripe agent payments 2026",
+    "max_results": 20,
+    "freshness": "24h"
+  },
+  "max_cost_usdc": "0.05"
+}''',
+        "pricing_example": [("Per query", "$0.005 USDC"), ("100 queries / day", "$0.50 USDC"), ("Monthly burn", "≈ $15 USDC"), ("Wiseble fee on top", "$0 — flat SaaS for the provider")],
+        "related": ["trading-agents", "knowledge-graph-agents", "brand-monitoring-agents"],
     },
     {
         "num": "02",
@@ -31,6 +57,17 @@ CASES = [
         "problem": "A shopping agent comparing 50 retailers needs product, price, and availability data — often behind anti-bot defenses that require residential proxies and JS rendering. Coordinating accounts and credits across that many providers manually is impossible at agent speed.",
         "solution": "The agent buys a $99/250k-credits package from a scraping provider that handles e-commerce extraction. The agent gets a working API key in seconds, runs comparisons across thousands of products, and returns cited sources to the user. When credits run out, it tops up — within budget.",
         "providers": ["Bright Data Web Scraper", "Oxylabs E-commerce Scraper", "ScraperAPI", "ScrapingBee"],
+        "sample_query": '''{
+  "tool": "scrape.product",
+  "params": {
+    "urls": ["https://amazon.com/dp/...","https://walmart.com/ip/..."],
+    "render_js": true,
+    "geo": "us-residential"
+  },
+  "max_cost_usdc": "1.00"
+}''',
+        "pricing_example": [("Per product page", "$0.004 USDC"), ("250k credits package", "$99 USDC / 30 days"), ("Effective rate", "1 credit ≈ 1 page"), ("Top-up trigger", "Auto when 10% credits left")],
+        "related": ["travel-agents", "brand-monitoring-agents", "real-estate-agents"],
     },
     {
         "num": "03",
@@ -41,6 +78,17 @@ CASES = [
         "problem": "Outbound agents enriching prospects need company firmographics, contact data, technographics, and intent signals from public sources. Account creation across 5–10 enrichment vendors and managing per-vendor quotas is a permanent operational tax.",
         "solution": "The agent purchases lead-enrichment credits package-by-package as prospect lists grow. Cold-email and CRM-update workflows run autonomously without manual top-ups, audit trail per enriched contact, no shared API keys to leak.",
         "providers": ["B2B contact databases", "Technographic providers", "Intent-signal APIs", "Lead enrichment APIs"],
+        "sample_query": '''{
+  "tool": "enrich.company",
+  "params": {
+    "domain": "wiseble.ai",
+    "fields": ["employees","tech_stack","funding","contacts"],
+    "freshness": "30d"
+  },
+  "max_cost_usdc": "0.20"
+}''',
+        "pricing_example": [("Per enrichment", "$0.05 USDC"), ("1,000 leads / week", "≈ $50 USDC"), ("With cache", "Refresh every 30d"), ("Audit log", "Per-lead chain receipt")],
+        "related": ["recruiting-agents", "trading-agents", "knowledge-graph-agents"],
     },
     {
         "num": "04",
@@ -51,6 +99,17 @@ CASES = [
         "problem": "Trading agents need real-time news, social sentiment, on-chain analytics, and earnings data — usually fragmented across 5–10 paid APIs. Each API has its own pricing tier, key, and abuse policy. Reconciling spend at end of month is brutal.",
         "solution": "One agent wallet, one MCP namespace, dozens of data sources. Pay only for queries actually executed. Batch-purchase data packages during high-volume trading periods, scale down between events.",
         "providers": ["News APIs", "Twitter/X data APIs", "Financial data providers", "On-chain analytics"],
+        "sample_query": '''{
+  "tool": "news.feed",
+  "params": {
+    "symbols": ["NVDA","COIN","TSLA"],
+    "since_seconds": 60,
+    "sentiment": true
+  },
+  "max_cost_usdc": "0.10"
+}''',
+        "pricing_example": [("Per news feed poll", "$0.001 USDC"), ("60 polls / minute", "$0.06 USDC / min"), ("Trading session", "8h ≈ $30 USDC"), ("Volatility spike", "Auto top-up package")],
+        "related": ["research-agents", "brand-monitoring-agents", "knowledge-graph-agents"],
     },
     {
         "num": "05",
@@ -61,6 +120,16 @@ CASES = [
         "problem": "Recruiting agents need job postings, candidate profiles, and skills data — pulled across LinkedIn, Indeed, and niche boards. ATS integrations are slow to negotiate; a human always has to maintain credentials.",
         "solution": "The agent purchases job-board scraping packages on-demand based on search volume. No ATS integration required, no human in the loop for credentials. Per-search cost goes from a fixed annual contract to a metered USDC stream.",
         "providers": ["LinkedIn scrapers", "Indeed scrapers", "Job-board aggregators", "Skill databases"],
+        "sample_query": '''{
+  "tool": "scrape.linkedin_profile",
+  "params": {
+    "url": "https://www.linkedin.com/in/...",
+    "fields": ["experience","skills","education"]
+  },
+  "max_cost_usdc": "0.10"
+}''',
+        "pricing_example": [("Per profile", "$0.02 USDC"), ("100 profiles / day", "$2 USDC"), ("With dedup", "Cache 7d"), ("Annual saving", "vs $15k ATS plan: huge")],
+        "related": ["lead-gen-agents", "real-estate-agents", "brand-monitoring-agents"],
     },
     {
         "num": "06",
@@ -71,6 +140,18 @@ CASES = [
         "problem": "Real estate agents (the AI kind) helping users find homes need MLS data, public records, neighborhood comps, and listing photos. Per-region MLS rate limits and licensing rules block many integrations outright.",
         "solution": "The agent buys a residential-proxy package to bypass per-region MLS rate limits, runs comparative market analysis, and returns curated listings with sources. Each search costs cents, not dollars; the agent escalates to a human only when the user is ready to act.",
         "providers": ["Real estate scrapers", "Public records APIs", "Geo-data providers", "Image hosting / CDN APIs"],
+        "sample_query": '''{
+  "tool": "mls.search",
+  "params": {
+    "zip": "78701",
+    "min_beds": 3,
+    "price_max_usd": 750000,
+    "include_photos": true
+  },
+  "max_cost_usdc": "0.50"
+}''',
+        "pricing_example": [("Per MLS search", "$0.10 USDC"), ("With proxy package", "$49 / 100k credits"), ("Photos / listing", "$0.02 each"), ("Avg user session", "≈ $0.30 USDC")],
+        "related": ["travel-agents", "shopping-agents", "lead-gen-agents"],
     },
     {
         "num": "07",
@@ -81,6 +162,19 @@ CASES = [
         "problem": "Travel agents helping users book flights and hotels need real-time pricing across 20+ OTAs and direct airline sites — pages heavily protected by bot defenses and dynamic pricing tricks. CAPTCHA solving alone makes manual integrations untenable.",
         "solution": "The agent purchases JS-rendering scraper packages that handle CAPTCHA and dynamic pricing. The agent compares 50 itineraries in 30 seconds, presents the best three to the user, with every source cited. Top-ups happen mid-search if the budget allows.",
         "providers": ["Travel scrapers", "Flight aggregators", "Hotel APIs", "Currency conversion APIs"],
+        "sample_query": '''{
+  "tool": "flights.search",
+  "params": {
+    "from": "JFK",
+    "to": "BCN",
+    "depart": "2026-06-12",
+    "return": "2026-06-19",
+    "ota_count": 20
+  },
+  "max_cost_usdc": "0.80"
+}''',
+        "pricing_example": [("Per OTA hit", "$0.01 USDC"), ("20 OTAs / search", "$0.20 USDC"), ("CAPTCHA solve", "Included in package"), ("User-facing fee", "Provider's call")],
+        "related": ["shopping-agents", "real-estate-agents", "brand-monitoring-agents"],
     },
     {
         "num": "08",
@@ -91,6 +185,18 @@ CASES = [
         "problem": "Brand-monitoring agents need to track mentions across social media, review sites, forums, and news outlets — aggregating sentiment in near-real-time. Annual contracts with monitoring vendors lock teams into capacity that doesn't match real spike-and-trough demand.",
         "solution": "The agent buys SERP and social-scraping packages on a daily cadence. When a mention spike happens, it tops up automatically. Alerts fire on sentiment shifts, priority responses are surfaced, the rest of the noise stays in the audit log.",
         "providers": ["Social listening APIs", "Review scrapers", "SERP monitoring", "News aggregators"],
+        "sample_query": '''{
+  "tool": "mentions.feed",
+  "params": {
+    "brand": "Wiseble",
+    "channels": ["twitter","reddit","g2","news"],
+    "since_minutes": 5,
+    "sentiment": true
+  },
+  "max_cost_usdc": "0.05"
+}''',
+        "pricing_example": [("Per channel poll", "$0.002 USDC"), ("Daily / 4 channels", "≈ $1 USDC"), ("Spike auto-scale", "Tops up to $10 max"), ("Sentiment NLP", "Free at the provider")],
+        "related": ["research-agents", "trading-agents", "osint-agents"],
     },
     {
         "num": "09",
@@ -101,6 +207,17 @@ CASES = [
         "problem": "Security agents monitoring threat actors need dark-web, paste-site, and public-source data — often time-sensitive and high-volume. Auditors want immutable logs of every query made on regulated investigations.",
         "solution": "The agent purchases specialized OSINT packages, escalates alerts to humans, and maintains a chain-anchored audit trail of every API call paid. Compliance and procurement get a clean per-investigation cost line; analysts get faster signal.",
         "providers": ["OSINT APIs", "Dark-web scrapers", "Threat-feed providers", "Public records APIs"],
+        "sample_query": '''{
+  "tool": "darkweb.search",
+  "params": {
+    "indicators": ["acme.com","CEO@acme.com"],
+    "sources": ["paste","forums","tor"],
+    "max_age_days": 90
+  },
+  "max_cost_usdc": "1.00"
+}''',
+        "pricing_example": [("Per indicator", "$0.05 USDC"), ("Investigation", "≈ $5 USDC / case"), ("Audit log", "On-chain receipt / call"), ("Compliance", "Verifiable spend per case")],
+        "related": ["research-agents", "brand-monitoring-agents", "knowledge-graph-agents"],
     },
     {
         "num": "10",
@@ -111,6 +228,18 @@ CASES = [
         "problem": "Agents building knowledge graphs or providing real-time grounding for LLM applications need wide, fresh, structured web data — at scale. Quotas at any single vendor cap throughput; spreading across vendors creates a per-vendor account zoo.",
         "solution": "The agent batch-purchases high-volume scraping packages monthly, ingests millions of pages, and builds and refreshes a knowledge index. Costs are predictable and scoped to the agent's budget. New providers join the network with zero integration work.",
         "providers": ["General web crawlers", "Structured-data extractors", "Document parsers", "Embedding-ready text APIs"],
+        "sample_query": '''{
+  "tool": "crawl.batch",
+  "params": {
+    "seed_urls": ["https://docs.example.com"],
+    "depth": 3,
+    "max_pages": 50000,
+    "extract": "main_content"
+  },
+  "max_cost_usdc": "200"
+}''',
+        "pricing_example": [("Per 1k pages", "$2 USDC"), ("50k page batch", "≈ $100 USDC"), ("Monthly index", "≈ $400 USDC"), ("Re-crawl delta", "Cheaper with cache hints")],
+        "related": ["research-agents", "trading-agents", "lead-gen-agents"],
     },
 ]
 
@@ -178,6 +307,7 @@ TEMPLATE = """<!DOCTYPE html>
 
   <main class="pt-16">
 
+    <!-- HERO -->
     <section class="section">
       <div class="max-w-content mx-auto px-6 md:px-10">
         <div class="flex items-center gap-3 mb-6">
@@ -190,6 +320,7 @@ TEMPLATE = """<!DOCTYPE html>
       </div>
     </section>
 
+    <!-- PROBLEM / SOLUTION -->
     <section class="section pt-0 md:pt-0 lg:pt-0 border-t border-[#222]">
       <div class="max-w-content mx-auto px-6 md:px-10 mt-16">
         <div class="grid md:grid-cols-2 gap-6">
@@ -210,6 +341,71 @@ TEMPLATE = """<!DOCTYPE html>
       </div>
     </section>
 
+    <!-- EXAMPLE FLOW -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Example flow</p>
+        <h2 class="display text-ghost-white max-w-4xl">From agent intent to fresh data.</h2>
+
+        <div class="bracket-frame console-card-low mt-16"><span class="bl"></span><span class="br"></span>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="border border-[#353535] p-5 text-center">
+              <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">smart_toy</span>
+              <p class="caption text-ghost-white mt-3">01 · Agent intent</p>
+              <p class="helper text-on-surface-variant mt-2">Agent picks the tool from MCP catalog.</p>
+            </div>
+            <div class="border border-[#353535] p-5 text-center">
+              <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">payments</span>
+              <p class="caption text-ghost-white mt-3">02 · 402 + USDC</p>
+              <p class="helper text-on-surface-variant mt-2">Provider returns price; agent's wallet pays on Base.</p>
+            </div>
+            <div class="border border-[#353535] p-5 text-center">
+              <span class="material-symbols-outlined text-accent-orange" style="font-size:32px">key</span>
+              <p class="caption text-ghost-white mt-3">03 · Key issued</p>
+              <p class="helper text-on-surface-variant mt-2">Provider's <span class="font-mono">issueApiKey()</span> runs through Wiseble.</p>
+            </div>
+            <div class="border border-[#353535] p-5 text-center">
+              <span class="material-symbols-outlined text-ghost-white" style="font-size:32px">cloud_done</span>
+              <p class="caption text-ghost-white mt-3">04 · Data flows</p>
+              <p class="helper text-on-surface-variant mt-2">Agent calls the API like any other customer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAMPLE QUERY -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Sample agent invocation</p>
+        <h2 class="display text-ghost-white max-w-4xl">What the agent actually calls.</h2>
+
+        <div class="grid lg:grid-cols-3 gap-6 mt-16 items-start">
+
+          <div class="lg:col-span-2 code-block p-6">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#222]">
+              <span class="caption text-ghost-white">tool.invoke · JSON-RPC</span>
+              <button type="button" class="copy-btn flex items-center gap-1 caption text-muted-ash hover:text-ghost-white" data-target="sample-{slug}">
+                <span class="material-symbols-outlined text-sm">content_copy</span><span>Copy</span>
+              </button>
+            </div>
+<pre id="sample-{slug}" class="overflow-x-auto"><code>{sample_html}</code></pre>
+          </div>
+
+          <aside class="bracket-frame console-card-low"><span class="bl"></span><span class="br"></span>
+            <span class="caption text-accent-orange">// Pricing example</span>
+            <h3 class="subheading text-ghost-white mt-3">Cost per workload.</h3>
+            <ul class="mt-6 space-y-3">
+{pricing_html}
+            </ul>
+            <p class="helper text-on-surface-variant mt-6 pt-6 border-t border-[#222]">All prices are illustrative and set by the provider, not by Wiseble.</p>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROVIDERS -->
     <section class="section border-t border-[#222]">
       <div class="max-w-content mx-auto px-6 md:px-10">
         <p class="caption text-accent-orange mb-6">// Recommended provider categories</p>
@@ -223,6 +419,19 @@ TEMPLATE = """<!DOCTYPE html>
       </div>
     </section>
 
+    <!-- RELATED USE CASES -->
+    <section class="section border-t border-[#222]">
+      <div class="max-w-content mx-auto px-6 md:px-10">
+        <p class="caption text-accent-orange mb-6">// Related categories</p>
+        <h2 class="display text-ghost-white max-w-4xl">Agents that look similar.</h2>
+
+        <div class="grid md:grid-cols-3 gap-6 mt-16">
+{related_html}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
     <section class="section border-t border-[#222]">
       <div class="max-w-content mx-auto px-6 md:px-10">
         <div class="border-2 border-accent-orange p-12 md:p-20 bg-surface-container-lowest text-center relative overflow-hidden">
@@ -232,7 +441,7 @@ TEMPLATE = """<!DOCTYPE html>
             One YAML, one middleware, one restart. Agents in this category find you the moment they need you.
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-            <a href="../partner.html" class="btn-solid">Become a launch partner</a>
+            <a href="../partner.html" class="btn-solid">Launch Wiseble</a>
             <a href="../pricing.html" class="btn-outline">See pricing</a>
           </div>
         </div>
@@ -276,19 +485,69 @@ def render_providers(providers: list[str]) -> str:
     chunks = []
     for p in providers:
         chunks.append(
-            f'          <div class="border border-[#353535] p-5">\n'
+            '          <div class="border border-[#353535] p-5">\n'
             f'            <h3 class="subheading text-ghost-white">{p}</h3>\n'
-            f'          </div>'
+            '          </div>'
         )
     return "\n".join(chunks)
+
+
+def render_pricing(rows: list[tuple[str, str]]) -> str:
+    chunks = []
+    for label, value in rows:
+        chunks.append(
+            '              <li class="flex items-start justify-between gap-3">\n'
+            f'                <span class="helper text-on-surface-variant">{label}</span>\n'
+            f'                <span class="caption text-ghost-white text-right">{value}</span>\n'
+            '              </li>'
+        )
+    return "\n".join(chunks)
+
+
+def render_related(slugs: list[str]) -> str:
+    chunks = []
+    for s in slugs:
+        label = LABELS.get(s, s)
+        chunks.append(
+            f'          <a href="{s}.html" class="bracket-frame console-card-low hover:border-accent-orange transition-colors flex flex-col gap-3"><span class="bl"></span><span class="br"></span>\n'
+            f'            <span class="caption text-muted-ash">→ {label}</span>\n'
+            f'            <h3 class="subheading text-ghost-white">{label} agents.</h3>\n'
+            '            <span class="caption text-accent-orange inline-flex items-center gap-1 mt-2">Read more <span class="material-symbols-outlined text-sm">arrow_outward</span></span>\n'
+            '          </a>'
+        )
+    return "\n".join(chunks)
+
+
+def html_escape_code(s: str) -> str:
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def render_sample(json_text: str) -> str:
+    """Token-paint a JSON sample for the dark code block."""
+    s = html_escape_code(json_text)
+
+    # Strings (in quotes) → keys are followed by ":", values come after ":"
+    # Simple regex pass: highlight "key": and string values, then punctuation.
+    def color_keys(m):
+        return f'<span class="tok-key">{m.group(0)}</span>'
+
+    def color_str(m):
+        return f'<span class="tok-str">{m.group(0)}</span>'
+
+    # Color "key": pattern
+    s = re.sub(r'"[^"]+"(?=\s*:)', color_keys, s)
+    # Color remaining "string"
+    s = re.sub(r'"[^"]+"', color_str, s)
+    # Color punctuation (braces, brackets, commas, colons)
+    for ch in ['{', '}', '[', ']', ',', ':']:
+        s = s.replace(ch, f'<span class="tok-pun">{ch}</span>')
+    return s
 
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     for c in CASES:
         path = OUT / f"{c['slug']}.html"
-        # Strip HTML tags from subhead for meta description
-        import re
         subhead_meta = re.sub(r"<[^>]+>", "", c["subhead"]).replace('"', "'")
         title_lc = c["title"].lower()
         page = TEMPLATE.format(
@@ -302,6 +561,9 @@ def main() -> None:
             problem=c["problem"],
             solution=c["solution"],
             providers_html=render_providers(c["providers"]),
+            sample_html=render_sample(c["sample_query"]),
+            pricing_html=render_pricing(c["pricing_example"]),
+            related_html=render_related(c["related"]),
         )
         path.write_text(page, encoding="utf-8")
         print(f"  wrote {path.relative_to(ROOT)}")
