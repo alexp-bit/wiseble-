@@ -109,56 +109,6 @@ body {
 .compare-table th { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; font-size: 12px; color: #ffffff; background: #1b1b1b; }
 .compare-table td:first-child { background: #0e0e0e; font-weight: 600; }
 
-/* ============================================================
-   HERO — ambient edge glyphs
-   ============================================================ */
-.hero {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-.hero-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%);
-}
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image:
-    linear-gradient(to right, rgba(255,255,255,.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,.025) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 30%, #000 90%);
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 30%, #000 90%);
-  pointer-events: none;
-}
-.hero-vignette {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 50% 40% at 50% 45%, rgba(255,107,26,.06), transparent 70%),
-    radial-gradient(ellipse 80% 60% at 50% 50%, transparent 60%, rgba(10,10,10,.6) 100%);
-}
-.hero-inner { position: relative; z-index: 2; }
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-canvas { display: none; }
-}
-
-/* Hide hero animation in agent mode */
-[data-mode="agent"] .hero-canvas,
-[data-mode="agent"] .hero-grid,
-[data-mode="agent"] .hero-vignette { display: none; }
-
 /* Mobile menu */
 .mobile-menu[hidden] { display: none; }
 
